@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_150sdp"
+    android:layout_height="@dimen/_100sdp">
+
+    <ImageView
+        android:id="@+id/PreviewImage"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="visible"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bank_account_icon"
+        android:contentDescription="Selected Image View" />
+
+</RelativeLayout>

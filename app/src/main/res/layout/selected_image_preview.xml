@@ -1,0 +1,38 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/_100sdp"
+    android:elevation="@dimen/_5sdp"
+    android:layout_margin="@dimen/_8sdp"
+    app:cardCornerRadius="@dimen/_5sdp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/PreviewImage"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_centerInParent="true"
+            android:contentDescription="Selected Image View"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bank_account_icon"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/DeleteButton"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_black"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/cross_delete_icon" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+
+

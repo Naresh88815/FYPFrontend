@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/top_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@color/mint_green"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_10sdp">
+
+
+        <ImageView
+            android:id="@+id/ltbLogo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/app_logo"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="Expense Manager"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp" />
+
+
+    </RelativeLayout>
+
+    <!-- Fragment container -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_below="@+id/top_bar_layout" />
+
+
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/bottom_navigation"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        app:backgroundTint="@color/white"-->
+    <!--        app:elevation="10dp"-->
+    <!--        app:labelVisibilityMode="labeled"-->
+    <!--        app:menu="@menu/navigation_items"-->
+    <!--        android:foregroundTint="@color/green"-->
+    <!--        app:itemIconTint="@drawable/selector_item_selected"-->
+    <!--        app:itemTextAppearanceActive="@style/SelectedBottomNavigationText"-->
+    <!--        app:itemTextAppearanceInactive="@style/UnselectedBottomNavigationText" />-->
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:backgroundTint="@color/white"
+        app:elevation="10dp"
+        app:itemRippleColor="@color/mint_green"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/navigation_items" />
+
+</RelativeLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/selected_indicator_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Filled rectangle shape for the selected indicator -->
+    <solid android:color="@color/green" />
+</shape>

@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Expense Manager</string>
+
+    <string-array name="expense_label_array">
+        <item>Dinner</item>
+        <item>Lunch</item>
+        <item>Breakfast</item>
+    </string-array>
+
+    <string name="sort_by_prompt">Sort By</string>
+    <string name="sort_by_date">Date</string>
+    <string name="sort_by_amt">Amount</string>
+
+    <string-array name="sort_by_options">
+        <item>Sort by &amp; date</item>
+        <item>Request By</item>
+        <item>Status</item>
+        <item>Expense Heads</item>
+        <item>Choose Date</item>
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
+    <string-array name="sort_by_date">
+        <item>Date</item>
+        <item>Choose Date</item>
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
+    <string-array name="sort_by_amt">
+        <item>Amount</item>
+        <item>Low To High</item>
+        <item>High To Low</item>
+    </string-array>
+</resources>

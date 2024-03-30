@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    tools:context=".fragments.HomeFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/popupBg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/corner_cardview"
+                android:backgroundTint="@color/white">
+
+                <Spinner
+                    android:id="@+id/expenseHeadSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text=""
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchLabel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/outlined_rectangle"
+                android:padding="5dp"
+                android:visibility="gone"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@color/white"
+                app:queryHint="Search Labels" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/searchLabelRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_cardview"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/corner_cardview"
+                android:backgroundTint="@color/white">
+
+                <Spinner
+                    android:id="@+id/expenseLabelSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text=""
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/expenseLabelET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/corner_cardview"
+                android:hint="Enter Your Label Here"
+                android:padding="@dimen/_10sdp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/expenseAmountET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/corner_cardview"
+                android:drawableLeft="@drawable/baseline_currency_rupee_24"
+                android:hint="Enter Amount"
+                android:inputType="number"
+                android:maxLength="8"
+                android:padding="@dimen/_10sdp"
+                android:visibility="gone" />
+
+
+            <RelativeLayout
+                android:id="@+id/uploadImgBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/corner_cardview"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/upload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:text="Upload File"
+                    android:textAllCaps="false"
+                    android:textColor="@color/mint_green"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/upload"
+                    android:paddingLeft="6dp"
+                    android:src="@drawable/round_file_present_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/previewimage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@drawable/corner_cardview"
+                android:padding="@dimen/_5sdp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/close_icon"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@drawable/circle_black"
+                    android:padding="@dimen/_2sdp"
+                    android:src="@drawable/baseline_close_24"
+                    android:visibility="gone"
+                    app:tint="@color/white"></ImageView>
+
+                <ImageView
+                    android:id="@+id/IVPreviewImage"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/imageRecvRelativeLayput"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/white"
+                android:visibility="gone">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/imageRecyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/selected_image_preview" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/note"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:background="@drawable/outlined_rectangle"
+                android:gravity="start|top"
+                android:hint="Leave a note if any"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/paymentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select Payment Type"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp">
+
+                    <RadioGroup
+                        android:id="@+id/paymentRadioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_3sdp">
+
+                        <RadioButton
+                            android:id="@+id/radioPrepaid"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/prepaid_icon"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/blue_text"
+                            android:text="Prepaid"
+                            android:textColor="@color/blue_text"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/radioPostpaid"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/postpaid_icon"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/blue_text"
+                            android:text="Postpaid"
+                            android:textColor="@color/blue_text"
+                            android:textStyle="bold" />
+                    </RadioGroup>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/accountDetailsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/amountPaidCheckBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:text="Amount to be paid"
+                        android:textColor="@color/dark_blue"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
+
+                    <RadioGroup
+                        android:id="@+id/amountPaidTypeRadioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_30sdp"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_3sdp"
+                        android:visibility="gone">
+
+                        <RadioButton
+                            android:id="@+id/upiRadioButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/upi_id_icon"
+                            android:drawablePadding="5dp"
+                            android:text="UPI ID"
+                            android:textColor="@color/dark_blue" />
+
+                        <RadioButton
+                            android:id="@+id/bankRadioButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/bank_account_icon"
+                            android:drawablePadding="8dp"
+                            android:text="Bank Account"
+                            android:textColor="@color/dark_blue" />
+                    </RadioGroup>
+                </androidx.cardview.widget.CardView>
+
+                <EditText
+                    android:id="@+id/upiIdEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/corner_cardview"
+                    android:hint="Enter UPI ID"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/_10sdp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/bankAccountDetailsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/nameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/corner_cardview"
+                        android:hint="Enter Account Owner Name"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/_10sdp"
+                        android:visibility="visible" />
+
+                    <EditText
+                        android:id="@+id/accountNumberEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@drawable/corner_cardview"
+                        android:hint="Enter Account Number"
+                        android:inputType="number"
+                        android:padding="@dimen/_10sdp"
+                        android:visibility="visible" />
+
+                    <EditText
+                        android:id="@+id/ifscCodeEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@drawable/corner_cardview"
+                        android:hint="Enter IFSC Code"
+                        android:inputType="textCapCharacters"
+                        android:padding="@dimen/_10sdp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/bankAccountLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/paymentLayout"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select Account Type"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp">
+
+                    <RadioGroup
+                        android:id="@+id/bankAccountRadioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_3sdp">
+
+                        <RadioButton
+                            android:id="@+id/personalAccountRadioButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/personal_bank_account_icon"
+                            android:drawablePadding="5dp"
+                            android:text="Personal\nAccount"
+                            android:textColor="@color/black" />
+
+                        <RadioButton
+                            android:id="@+id/companyAccountRadioButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/company_bank_account_icon"
+                            android:drawablePadding="8dp"
+                            android:text="Company\nAccount"
+                            android:textColor="@color/black" />
+                    </RadioGroup>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/corner_cardview"
+                android:backgroundTint="@color/white">
+
+                <Spinner
+                    android:id="@+id/bankNameSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text=""
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/createExpenseLabelBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/top_layout"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/corner_cardview"
+            android:backgroundTint="@color/mint_green"
+            android:padding="15dp"
+            android:text="Create Expense Label"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submitBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/top_layout"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/corner_cardview"
+            android:backgroundTint="@color/mint_green"
+            android:padding="15dp"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </RelativeLayout>
+</ScrollView>

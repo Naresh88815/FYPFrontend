@@ -1,0 +1,29 @@
+<!-- item_option.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/_5sdp"
+    android:padding="@dimen/_8sdp">
+
+    <!-- Icon for the option -->
+    <ImageView
+        android:id="@+id/imageOption"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/round_file_present_24" />
+
+    <!-- Text for the option -->
+    <TextView
+        android:id="@+id/textOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageOption"
+        android:text="Option"
+        android:textSize="12sp" />
+
+</RelativeLayout>

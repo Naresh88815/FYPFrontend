@@ -1,0 +1,70 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/light_grey"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Expense Label"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20dp"></TextView>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.000009dp"
+        android:background="@color/black"></TextView>
+
+    <!-- EditText and Apply Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:gravity="center"
+        android:background="@drawable/white_btn_border"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/expenseLabelTxt"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:background="@drawable/white_btn_border"
+            android:layout_weight="1"
+            android:inputType="text"
+            android:maxLength="200"
+            android:layout_height="match_parent"
+            android:hint="Enter The Expense Label"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/btn_green_bg"
+        android:gravity="center"
+        android:text="SUBMIT"
+        android:layout_marginBottom="@dimen/_80sdp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"></TextView>
+
+</LinearLayout>
