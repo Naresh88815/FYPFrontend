@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class Constants {
     public static boolean is_live = true;
     public static boolean isProgressDialogVisible = false;
-    public static String BASE_URL = "http://192.168.1.113:80/";
+    public static String BASE_URL = "http://192.168.100.23:80/";
     public static String END_POINT = BASE_URL+"api/";
     public static String LOGIN = END_POINT+"login";
     public static String LOGOUT = END_POINT+"logout";
@@ -38,11 +38,11 @@ public class Constants {
     public static String VIEW_LABEL = END_POINT + "exp_label";
     public static String CREATE_EXPENSE = END_POINT + "expenses";
     public static String VIEW_EXPENSE = END_POINT+ "expenses";
-    public static String EXPENSE_STATUS_UPDATE = END_POINT + "v1/exp_label.php";
+    public static String EXPENSE_STATUS_UPDATE = END_POINT + "update_status";
     public static String EXPENSE_HEAD = END_POINT + "exp_head";
     public static String BANKS_NAME = END_POINT + "v1/exp_expenses.php";
     public static String EXPENSE_DETAIL = END_POINT + "expenses";
-    public static String COUNT_EXPENSE = END_POINT + "v1/exp_expenses.php";
+    public static String COUNT_EXPENSE = END_POINT + "expense_summary";
     public static String EXP_EXPENSE = END_POINT + "expenses";
     public static String publicIp = "0";
 

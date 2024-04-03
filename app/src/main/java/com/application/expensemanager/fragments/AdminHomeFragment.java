@@ -99,7 +99,7 @@ public class AdminHomeFragment extends Fragment {
             filterDates.setText(selectedDateRange);
             filterDates.setVisibility(View.VISIBLE);
 
-//            FetchExpenseCount();
+            FetchExpenseCount();
         });
 
         // Showing the date picker dialog
@@ -114,21 +114,21 @@ public class AdminHomeFragment extends Fragment {
         total_cancel_money = view.findViewById(R.id.cancel_money);
         total_decline_money = view.findViewById(R.id.decline_money);
         transfer_money = view.findViewById(R.id.transfer_money);
-//        FetchExpenseCount();
+        FetchExpenseCount();
         dateFilter = view.findViewById(R.id.dateFilter);
         filterDates = view.findViewById(R.id.filterDates);
         createExpenseHeadBtn=view.findViewById(R.id.createExpenseHeadBtn);
         addUserBtn= view.findViewById(R.id.AddUserBtn);
     }
 
-//    private void FetchExpenseCount() {
-//        Utils.showProgressDialog(getContext(),false);
-//        HashMap<String, String> params = new HashMap<String, String>();
-//        params.put("type", "count_expense");
-//        params.put("start_date",startDateString);
-//        params.put("end_date",endDateString);
-//        apinetwork.requestWithJsonObject(Constants.COUNT_EXPENSE, params, vr, "count_expense");
-//    }
+    private void FetchExpenseCount() {
+        Utils.showProgressDialog(getContext(),false);
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("type", "count_expense");
+        params.put("start_date",startDateString);
+        params.put("end_date",endDateString);
+        apinetwork.requestWithJsonObject(Constants.COUNT_EXPENSE, params, vr, "count_expense");
+    }
     VolleyResponse vr = new VolleyResponse() {
         @Override
         public void onResponse(JSONObject obj) throws Exception {
@@ -145,12 +145,13 @@ public class AdminHomeFragment extends Fragment {
                         boolean status = json.getBoolean("status");
                         //  Toast.makeText(getContext(), "" + json.getString("msg"), Toast.LENGTH_SHORT).show();
                         if (status) {
-                            total_exp_money.setText("₹ "+json.getString("total_request"));
-                            total_approved_money.setText("₹ "+json.getString("total_approved"));
-                            total_cancel_money.setText("₹ "+json.getString("total_cancel"));
-                            total_pending_money.setText("₹ "+json.getString("total_pending"));
-                            total_decline_money.setText("₹ "+json.getString("total_decline"));
-                            transfer_money.setText("₹ "+json.getString("total_transfer"));
+                            JSONObject countObject = json.getJSONObject("summary");
+                            total_exp_money.setText("₹ "+countObject.getString("total_request"));
+                            total_approved_money.setText("₹ "+countObject.getString("total_approved"));
+                            total_cancel_money.setText("₹ "+countObject.getString("total_cancel"));
+                            total_pending_money.setText("₹ "+countObject.getString("total_pending"));
+                            total_decline_money.setText("₹ "+countObject.getString("total_decline"));
+                            transfer_money.setText("₹ "+countObject.getString("total_transfer"));
                         }
                     }
                 } else if (url_type.equals("add_exp_heads")) {

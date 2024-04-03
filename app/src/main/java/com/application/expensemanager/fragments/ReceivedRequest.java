@@ -1,6 +1,7 @@
 package com.application.expensemanager.fragments;
 
 import static com.application.expensemanager.utils.MyApplication.apinetwork;
+import static com.application.expensemanager.utils.MyApplication.mSp;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -739,6 +740,7 @@ public class ReceivedRequest extends Fragment {
             HashMap<String, String> params = new HashMap<>();
             params.put("type", "expense_view");
             params.put("page", page);
+            params.put("emp_id", mSp.getKey(SPCsnstants.id));
             apinetwork.requestWithJsonObject(Constants.VIEW_EXPENSE, params, vr, "expense_view");
         } else if (filterApplied && !isFiltterLastPage && amountFiltter && !sortByFiltter && !dateFiltter) {
             Utils.showProgressDialog(getContext(), false);

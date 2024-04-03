@@ -87,7 +87,7 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
     ImageView billImg, transfer_img;
     String paid_type = "", paid_upi = "", paid_ac_owner = "", paid_ac_number = "", paid_ac_ifsc = "", company_bank_name = "", payment_type = "", account_type = "";
     String payment_status, exp_id, amount, image, label, dateStr, requestedBy, str_note, str_transferdby, str_transfer_image, transferDate_str, userNote, image_status, str_approveby, str_approve_date, rejectedDate, rejectedBy, str_reason, emp_id, str_emp_id;
-    String formattedDate, t_formattedDate, app_formateDate, reject_formateDate, strnote, str_sub_headname, str_headsname, str_paymenttype, str_accounttype;
+    String formattedDate, t_formattedDate, app_formateDate, reject_formateDate, strnote, str_headsname, str_paymenttype, str_accounttype;
     ImageView close_icon, close_icon_t, IVPreviewImage_t;
     RelativeLayout after_transfer_image, uploadImgButton;
     RelativeLayout paymentTypeLayout, upiLayout, paymenttypeLayout, companyBankNameLayout;
@@ -131,7 +131,7 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         initView();
         getIntentData();
         getExpenseDetail();
-        Log.d("Accounts_Details", "after response : " + paid_type + " : " + paid_upi + " : " + paid_ac_owner + " : " + paid_ac_number + " : " + paid_ac_ifsc + " : " + company_bank_name);
+//        Log.d("Accounts_Details", "after response : " + paid_type + " : " + paid_upi + " : " + paid_ac_owner + " : " + paid_ac_number + " : " + paid_ac_ifsc + " : " + company_bank_name);
         // updateUIWithData();
         approveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,7 +287,7 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                     if (json != null) {
                         boolean status = json.getBoolean("status");
 
-                        Toast.makeText(ReceivedRequestDetailsActivity.this, "" + json.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ReceivedRequestDetailsActivity.this, "" + json.getString("message"), Toast.LENGTH_SHORT).show();
                         if (status) {
                             getExpenseDetail();
                             str_note = "";
@@ -311,22 +311,10 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                                 userNote = "" + object.getString("note");
 //                                is_img = object.getBoolean("is_status");
                                 str_headsname = object.getString("heads_name");
-                                str_paymenttype = object.getString("payment_type");
                                 is_approve_btn = object.getBoolean("is_approve_button");
 
-//                                payment_type = object.getString("payment_type");
-//                                paid_type = object.getString("paid_type");
-//                                paid_upi = object.getString("paid_upi");
-//                                paid_ac_owner = object.getString("paid_ac_owner");
-//                                paid_ac_number = object.getString("paid_ac_number");
-//                                paid_ac_ifsc = object.getString("paid_ac_ifsc");
-//                                company_bank_name = object.getString("company_bank_name");
-//                                account_type = object.getString("account_type");
+                                payment_type = object.getString("payment_type");
                                 image = object.getString("image");
-                                showAccountsDetails();
-
-//                                Log.d("Accounts_Details", account_type + " : " + company_bank_name + " : " + payment_type + " : " + paid_type + " : " + paid_upi + " : " + paid_ac_owner + " : " + paid_ac_number + " : " + paid_ac_ifsc + " : " + company_bank_name);
-
 
                                 if (image.equals("null")) {
                                     imgview.setVisibility(View.GONE);
@@ -367,11 +355,14 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
-                                if (!json.isNull("approve")) {
-                                    JSONObject approveobject = json.getJSONObject("approve");
+
+                                if (!object.isNull("approve")) {
+
+                                    JSONObject approveobject = object.getJSONObject("approve");
                                     approvedview.setVisibility(View.VISIBLE);
                                     str_approveby = approveobject.getString("user_name");
                                     str_approve_date = "" + approveobject.getString("date_added");
+
                                     try {
                                         Date t_date = inputDateFormat.parse(str_approve_date);
                                         SimpleDateFormat outputDateFormat = new SimpleDateFormat("h:mm a, d MMMM yyyy");
@@ -379,10 +370,10 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-//                                    }
                                 }
-                                if (!json.isNull("reject")) {
-                                    JSONObject rejectobject = json.getJSONObject("reject");
+                                if (!object.isNull("reject")) {
+                                    JSONObject rejectobject = object.getJSONObject("reject");
+                                    Log.d("datasttu",rejectobject.toString());
                                     rejectedview.setVisibility(View.VISIBLE);
                                     rejectedBy = rejectobject.getString("user_name");
                                     str_reason = rejectobject.getString("note");
@@ -394,10 +385,9 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-//                                    }
                                 }
-                                if (!json.isNull("transfer")) {
-                                    JSONObject transferobject = json.getJSONObject("transfer");
+                                if (!object.isNull("transfer")) {
+                                    JSONObject transferobject = object.getJSONObject("transfer");
                                     transferview.setVisibility(View.VISIBLE);
                                     str_transferdby = transferobject.getString("user_name");
                                     str_note = transferobject.getString("note");
@@ -418,11 +408,12 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-//                                    }
                                 }
 
-                                if (!json.isNull("cancelled")) {
-                                    JSONObject rejectobject = json.getJSONObject("cancelled");
+                                if (!object.isNull("cancelled")) {
+                                    Log.d("errors", "This is the error");
+                                    JSONObject rejectobject = object.getJSONObject("cancelled");
+                                    Log.d("datasttu",rejectobject.toString());
                                     rejectedview.setVisibility(View.VISIBLE);
                                     rejectedByLayout.setVisibility(View.GONE);
                                     rejectedDateTitle.setText("Cancelled Date");
@@ -435,7 +426,6 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-//                                    }
                                 }
 
                             }
@@ -502,16 +492,22 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         requestedByTV.setText(requestedBy);
         requestLabelTV.setText(label);
         statusTv.setText(payment_status);
-        sub_headname.setText(str_sub_headname);
         headname.setText(str_headsname);
         amountTV.setText("₹ " + amount);
 
-        paymenttype_Tv.setText(str_paymenttype);
-        accounttype_Tv.setText(str_accounttype);
+//        paymenttype_Tv.setText(str_paymenttype);
+        payment_typeTV.setText(payment_type);
+//        accounttype_Tv.setText(str_accounttype);
 
         if (!userNote.isEmpty()) {
             user_note_layout.setVisibility(View.VISIBLE);
             user_note.setText(userNote);
+        }
+        if (!image.equals("null")) {
+            Glide.with(context)
+                    .load(image)
+                    .placeholder(R.drawable.img_placeholder)
+                    .into(billImg);
         }
 
         approvedby.setText(str_approveby);
@@ -525,12 +521,7 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         transferDate.setText(t_formattedDate);
         rejected_Date.setText(reject_formateDate);
 
-        if (!image.equals("null")) {
-            Glide.with(context)
-                    .load(image)
-                    .placeholder(R.drawable.img_placeholder)
-                    .into(billImg);
-        }
+
 
         if (!str_transfer_image.equals("null")) {
             Glide.with(context)
@@ -645,7 +636,7 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
 //                    Toast.makeText(getContext(), "Expense Label Created", Toast.LENGTH_SHORT).show();
 
                     sheet.cancel();
-                    cancelExpense();
+                    cancelExpense("3");
                     finish();
                 }
 
@@ -654,15 +645,16 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
 
     }
 
-    public void cancelExpense() {
+    public void cancelExpense(String status_id) {
         Utils.showProgressDialog(ReceivedRequestDetailsActivity.this, false);
         HashMap<String, String> params = new HashMap<>();
-        params.put("type", "cancel_expense");
+        params.put("type", "expense_status_update");
         params.put("emp_id", "" + MyApplication.mSp.getKey(SPCsnstants.id));
         params.put("exp_id", exp_id);
+        params.put("status_id", status_id);
         Log.d("CanclledReason", str_note);
         params.put("note", str_note);
-        apinetwork.requestWithJsonObject(Constants.EXPENSE_STATUS_UPDATE, params, vr, "cancel_expense");
+        apinetwork.requestWithJsonObject(Constants.EXPENSE_STATUS_UPDATE, params, vr, "expense_status_update");
     }
 
     public void updateExpenseStatus(String status_id) {
@@ -722,7 +714,6 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
     }
 
     private void openTransferBottomSheet() {
-
         final BottomSheetDialog sheet = new BottomSheetDialog(context);
         sheet.setContentView(R.layout.bottomsheet_transfer);
         uploadTransferImg = sheet.findViewById(R.id.uploadTransferImg);
@@ -1375,63 +1366,4 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                 break;
         }
     }
-
-    private void showAccountsDetails() {
-        if (!payment_type.equals("") && payment_type != null) {
-            paymenttypeLayout.setVisibility(View.VISIBLE);
-            payment_typeTV.setText(payment_type);
-        } else {
-            paymenttypeLayout.setVisibility(View.VISIBLE);
-        }
-
-        if (!paid_type.equals("") && paid_type != null) {
-            paymentTypeLayout.setVisibility(View.VISIBLE);
-            paid_typeTV.setText(paid_type);
-        } else {
-            paymentTypeLayout.setVisibility(View.GONE);
-        }
-
-        if (!paid_upi.equals("") && paid_upi != null) {
-            upiLayout.setVisibility(View.VISIBLE);
-            paid_upiTV.setText(paid_upi);
-        } else {
-            upiLayout.setVisibility(View.GONE);
-        }
-
-        if (!paid_ac_owner.equals("") && !paid_ac_number.equals("") && !paid_ac_ifsc.equals("") && paid_ac_owner != null && paid_ac_number != null && paid_ac_ifsc != null) {
-            bankAccountDetailsLayout.setVisibility(View.VISIBLE);
-            paid_ac_ownerTV.setText(paid_ac_owner);
-            paid_ac_numberTV.setText(paid_ac_number);
-            paid_ac_ifscTV.setText(paid_ac_ifsc);
-        } else {
-            bankAccountDetailsLayout.setVisibility(View.GONE);
-        }
-        if (!payment_type.equals("")) {
-            if (!payment_type.equals("")) {
-                paymenttypeLayout.setVisibility(View.VISIBLE);
-                payment_typeTV.setText(payment_type);
-            } else {
-                paymenttypeLayout.setVisibility(View.VISIBLE);
-            }
-            if (!account_type.equals("") && !company_bank_name.equals("")) {
-                prepaidDetailsLayout.setVisibility(View.VISIBLE);
-                companyBankNameLayout.setVisibility(View.VISIBLE);
-                account_typeTV.setText(account_type);
-                company_bank_nameTV.setText(company_bank_name);
-            } else {
-                prepaidDetailsLayout.setVisibility(View.GONE);
-            }
-            if (!account_type.equals("")) {
-                prepaidDetailsLayout.setVisibility(View.VISIBLE);
-                account_typeTV.setText(account_type);
-                if (company_bank_name.equals(""))
-                    companyBankNameLayout.setVisibility(View.GONE);
-            } else {
-                prepaidDetailsLayout.setVisibility(View.GONE);
-            }
-        }
-
-    }
-
-
 }

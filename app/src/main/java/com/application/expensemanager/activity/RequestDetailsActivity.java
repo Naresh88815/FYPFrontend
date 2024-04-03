@@ -78,8 +78,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class RequestDetailsActivity extends AppCompatActivity {
-    TextView requestLabelTV, statusTv, amountTV, paymenttype_Tv, requestDate, transferDate, transferdby, transferNote, user_note, sub_headname, headname;
-    String str_sub_headname, str_headsname, str_paymenttype;
+    TextView requestLabelTV, statusTv, amountTV, paymenttype_Tv, requestDate, transferDate, transferdby, transferNote, user_note,headname;
+    String  str_headsname, str_paymenttype;
     Context context;
     ImageView billImg, paymentImg;
     AppCompatButton cancel_btn, submitBtn;
@@ -98,7 +98,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
     ImageView close_icon;
     ImageView IVPreviewImage;
     String is_role;
-    Boolean is_img = false;
+//    Boolean is_img = false;
     String paid_type = "", paid_upi = "", paid_ac_owner = "", paid_ac_number = "", paid_ac_ifsc = "", company_bank_name = "", payment_type = "", account_type = "";
     RelativeLayout paymentTypeLayout, upiLayout, paymenttypeLayout, companyBankNameLayout;
     LinearLayout bankAccountDetailsLayout, prepaidDetailsLayout;
@@ -123,8 +123,8 @@ public class RequestDetailsActivity extends AppCompatActivity {
         initView();
         getIntentData();
         getExpenseDetail();
-
-        Log.d("Accounts_Details", paid_type + " : " + paid_upi + " : " + paid_ac_owner + " : " + paid_ac_number + " : " + paid_ac_ifsc+ " : " +company_bank_name);
+        Log.d("check","This is request details page");
+//        Log.d("Accounts_Details", paid_type + " : " + paid_upi + " : " + paid_ac_owner + " : " + paid_ac_number + " : " + paid_ac_ifsc+ " : " +company_bank_name);
 
 
         cancel_btn.setOnClickListener(new View.OnClickListener() {
@@ -285,29 +285,13 @@ public class RequestDetailsActivity extends AppCompatActivity {
                                 JSONObject object = json.getJSONObject("expense");
                                 label = object.getString("label_name");
                                 payment_status = object.getString("status");
-                                amount = object.getString("mrp");
+                                amount = object.getString("amount");
                                 str_headsname = object.getString("heads_name");
-                                str_paymenttype = object.getString("payment_type");
-                                str_sub_headname = object.getString("sub_heads_name");
                                 dateStr = object.getString("date_added");
                                 userNote = "" + object.getString("note");
-                                image = object.getString("image");
-                                image_status = object.getString("image_status");
-                                is_img = object.getBoolean("is_status");
+                                image = object.getString("image");;
 
                                 payment_type = object.getString("payment_type");
-                                paid_type = object.getString("paid_type");
-                                paid_upi = object.getString("paid_upi");
-                                paid_ac_owner = object.getString("paid_ac_owner");
-                                paid_ac_number = object.getString("paid_ac_number");
-                                paid_ac_ifsc = object.getString("paid_ac_ifsc");
-                                company_bank_name = object.getString("company_bank_name");
-                                account_type = object.getString("account_type");
-
-
-                                showAccountsDetails();
-
-                                Log.d("Accounts_Details", paid_type + " : " + paid_upi + " : " + paid_ac_owner + " : " + paid_ac_number + " : " + paid_ac_ifsc+ " : " +company_bank_name);
 
                                 Log.d("payment_status", String.valueOf(payment_status));
 
@@ -344,8 +328,9 @@ public class RequestDetailsActivity extends AppCompatActivity {
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
-                                if (!json.isNull("approve")) {
-                                    JSONObject approveobject = json.getJSONObject("approve");
+
+                                if (!object.isNull("approve")) {
+                                    JSONObject approveobject = object.getJSONObject("approve");
                                     approvedview.setVisibility(View.VISIBLE);
                                     str_approveby = approveobject.getString("user_name");
                                     str_approve_date = "" + approveobject.getString("date_added");
@@ -358,8 +343,8 @@ public class RequestDetailsActivity extends AppCompatActivity {
                                     }
 //                                    }
                                 }
-                                if (!json.isNull("reject")) {
-                                    JSONObject rejectobject = json.getJSONObject("reject");
+                                if (!object.isNull("reject")) {
+                                    JSONObject rejectobject = object.getJSONObject("reject");
                                     rejectedview.setVisibility(View.VISIBLE);
                                     rejectedBy = rejectobject.getString("user_name");
                                     str_reason = rejectobject.getString("note");
@@ -373,8 +358,8 @@ public class RequestDetailsActivity extends AppCompatActivity {
                                     }
 //                                    }
                                 }
-                                if (!json.isNull("transfer")) {
-                                    JSONObject transferobject = json.getJSONObject("transfer");
+                                if (!object.isNull("transfer")) {
+                                    JSONObject transferobject = object.getJSONObject("transfer");
                                     transferview.setVisibility(View.VISIBLE);
                                     str_transferdby = transferobject.getString("user_name");
                                     str_note = transferobject.getString("note");
@@ -389,8 +374,9 @@ public class RequestDetailsActivity extends AppCompatActivity {
                                     }
                                 }
 
-                                if (!json.isNull("cancelled")) {
-                                    JSONObject rejectobject = json.getJSONObject("cancelled");
+                                if (!object.isNull("cancelled")) {
+                                    JSONObject rejectobject = object.getJSONObject("cancelled");
+                                    Log.d("cancelled", rejectobject.toString());
                                     rejectedview.setVisibility(View.VISIBLE);
                                     rejectedByLayout.setVisibility(View.GONE);
                                     rejectedDateTitle.setText("Cancelled Date");
@@ -430,12 +416,12 @@ public class RequestDetailsActivity extends AppCompatActivity {
                         cancel_btn.setVisibility(View.GONE);
                         transferview.setVisibility(View.VISIBLE);
 
-                        if (is_img.equals(true)) {
-                            uploadImgButton.setVisibility(View.VISIBLE);
-                            Log.d("msggg", "Imag ecan be uploaded");
-                        } else {
-                            uploadImgButton.setVisibility(View.GONE);
-                        }
+//                        if (is_img.equals(true)) {
+//                            uploadImgButton.setVisibility(View.VISIBLE);
+//                            Log.d("msggg", "Imag ecan be uploaded");
+//                        } else {
+//                            uploadImgButton.setVisibility(View.GONE);
+//                        }
 
                     } else if (payment_status.equals("Pending")) {
                         cancel_btn.setVisibility(View.VISIBLE);
@@ -969,10 +955,10 @@ public class RequestDetailsActivity extends AppCompatActivity {
     private void updateUIWithData() {
         amountTV.setText("₹ " + amount);
         requestLabelTV.setText(label);
-        sub_headname.setText(str_sub_headname);
         headname.setText(str_headsname);
         statusTv.setText(payment_status);
-        paymenttype_Tv.setText(str_paymenttype);
+//        paymenttype_Tv.setText(str_paymenttype);
+        payment_typeTV.setText(payment_type);
         if (!userNote.isEmpty()) {
             user_note_layout.setVisibility(View.VISIBLE);
             user_note.setText(userNote);
@@ -1039,7 +1025,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
         IVPreviewImage = findViewById(R.id.IVPreviewImage);
         after_transfer_image = findViewById(R.id.previewimage);
         submitBtn = findViewById(R.id.submitBtn);
-        sub_headname = findViewById(R.id.sub_headname);
         headname = findViewById(R.id.headname);
 
         paymentTypeLayout = findViewById(R.id.paymentTypeLayout);
@@ -1065,15 +1050,16 @@ public class RequestDetailsActivity extends AppCompatActivity {
         responseImagePreviewRecview = findViewById(R.id.responseImagePreviewRecview);
     }
 
-    public void cancelExpense() {
+    public void cancelExpense(String status_id) {
         Utils.showProgressDialog(RequestDetailsActivity.this, false);
         HashMap<String, String> params = new HashMap<>();
-        params.put("type", "cancel_expense");
+        params.put("type", "expense_status_update");
         params.put("emp_id", "" + MyApplication.mSp.getKey(SPCsnstants.id));
         params.put("exp_id", exp_id);
+        params.put("status_id", status_id);
         Log.d("CanclledRequest", note);
         params.put("note", note);
-        apinetwork.requestWithJsonObject(Constants.EXPENSE_STATUS_UPDATE, params, vr, "cancel_expense");
+        apinetwork.requestWithJsonObject(Constants.EXPENSE_STATUS_UPDATE, params, vr, "expense_status_update");
     }
 
     private void openCancelRequestBottomSheet() {
@@ -1093,7 +1079,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
                     reasonET.setError("");
                 } else {
                     sheet.cancel();
-                    cancelExpense();
+                    cancelExpense("3");
                     finish();
                 }
 
@@ -1108,64 +1094,4 @@ public class RequestDetailsActivity extends AppCompatActivity {
         params.put("exp_id", exp_id);
         apinetwork.requestWithJsonObject(Constants.EXPENSE_DETAIL, params, vr, "expense_detail");
     }
-
-    private void showAccountsDetails() {
-        if (!payment_type.equals("") && payment_type != null) {
-            paymenttypeLayout.setVisibility(View.VISIBLE);
-            payment_typeTV.setText(payment_type);
-        } else {
-            paymenttypeLayout.setVisibility(View.VISIBLE);
-        }
-
-        if (!paid_type.equals("") && paid_type != null) {
-            paymentTypeLayout.setVisibility(View.VISIBLE);
-            paid_typeTV.setText(paid_type);
-        } else {
-            paymentTypeLayout.setVisibility(View.GONE);
-        }
-
-        if (!paid_upi.equals("") && paid_upi != null) {
-            upiLayout.setVisibility(View.VISIBLE);
-            paid_upiTV.setText(paid_upi);
-        } else {
-            upiLayout.setVisibility(View.GONE);
-        }
-
-        if (!paid_ac_owner.equals("") && !paid_ac_number.equals("") && !paid_ac_ifsc.equals("") && paid_ac_owner != null && paid_ac_number != null && paid_ac_ifsc != null) {
-            bankAccountDetailsLayout.setVisibility(View.VISIBLE);
-            paid_ac_ownerTV.setText(paid_ac_owner);
-            paid_ac_numberTV.setText(paid_ac_number);
-            paid_ac_ifscTV.setText(paid_ac_ifsc);
-        } else {
-            bankAccountDetailsLayout.setVisibility(View.GONE);
-        }
-        if (!payment_type.equals("")) {
-            if (!payment_type.equals("")) {
-                paymenttypeLayout.setVisibility(View.VISIBLE);
-                payment_typeTV.setText(payment_type);
-            } else {
-                paymenttypeLayout.setVisibility(View.VISIBLE);
-            }
-            if (!account_type.equals("") && !company_bank_name.equals("")) {
-                prepaidDetailsLayout.setVisibility(View.VISIBLE);
-                companyBankNameLayout.setVisibility(View.VISIBLE);
-                account_typeTV.setText(account_type);
-                company_bank_nameTV.setText(company_bank_name);
-            } else {
-                prepaidDetailsLayout.setVisibility(View.GONE);
-            }
-            if (!account_type.equals("")) {
-                prepaidDetailsLayout.setVisibility(View.VISIBLE);
-                account_typeTV.setText(account_type);
-                if (company_bank_name.equals(""))
-                    companyBankNameLayout.setVisibility(View.GONE);
-            } else {
-                prepaidDetailsLayout.setVisibility(View.GONE);
-            }
-        }
-
-    }
-
-
-
 }
