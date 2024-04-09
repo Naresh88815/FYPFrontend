@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -52,6 +54,10 @@ import com.application.expensemanager.utils.SPCsnstants;
 import com.application.expensemanager.utils.Utils;
 import com.application.expensemanager.utils.VolleyMultipartRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -77,6 +83,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+
+import com.khalti.checkout.helper.Config;
+import com.khalti.checkout.helper.KhaltiCheckOut;
+import com.khalti.checkout.helper.OnCheckOutListener;
+import com.khalti.checkout.helper.PaymentPreference;
+import com.khalti.utils.Constant;
+import com.khalti.widget.KhaltiButton;
+
+
 
 public class ReceivedRequestDetailsActivity extends AppCompatActivity {
     AppCompatButton approveBtn, rejectBtn, transferBtn, cancelBtn;
@@ -122,6 +137,10 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
     List<ChooseFileOptionModel> optionItems = new ArrayList<>();
     List<Bitmap> selectedBitmapsList = new ArrayList<>();
     List<String> imageUrlList = new ArrayList<>();
+    private static final String KHATI_PUBLIC_KEY = "your_khalti_public_key";
+    KhaltiButton khaltiButton;
+    KhaltiCheckOut khaltiCheckOut;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,8 +180,11 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         transferBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openTransferBottomSheet();
+//                openTransferBottomSheet();
+
+                openKhalti(exp_id, Long.valueOf(amount)*100);
             }
+
         });
 
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +193,7 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
 
         billImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -494,20 +517,47 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         statusTv.setText(payment_status);
         headname.setText(str_headsname);
         amountTV.setText("₹ " + amount);
-
-//        paymenttype_Tv.setText(str_paymenttype);
         payment_typeTV.setText(payment_type);
-//        accounttype_Tv.setText(str_accounttype);
 
         if (!userNote.isEmpty()) {
             user_note_layout.setVisibility(View.VISIBLE);
             user_note.setText(userNote);
         }
         if (!image.equals("null")) {
-            Glide.with(context)
-                    .load(image)
-                    .placeholder(R.drawable.img_placeholder)
-                    .into(billImg);
+//            Glide.with(context)
+//                    .load(image)
+//                    .placeholder(R.drawable.img_placeholder)
+//                    .into(billImg);
+            for (String imageUrl : imageUrlList) {
+                // Remove unnecessary symbols from the image URL
+                String cleanedImageUrl = imageUrl
+                        .replaceAll("\"", "") // Remove double quotes
+                        .replaceAll("\\[", "") // Remove opening square brackets
+                        .replaceAll("\\]", "") // Remove closing square brackets
+                        .trim(); // Trim any leading or trailing whitespace
+
+                // Load image into ImageView using Glide
+
+                Glide.with(context)
+                        .load(Constants.IMAGE_URL + cleanedImageUrl)
+                        .placeholder(R.drawable.img_placeholder)
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                Log.e("Glide", "Failed to load image: " + e);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                Log.d("Glide", "Image loaded successfully");
+                                return false;
+                            }
+                        })
+                        .into(billImg);
+
+                Log.d("images", Constants.IMAGE_URL + cleanedImageUrl);
+            }
         }
 
         approvedby.setText(str_approveby);
@@ -1032,14 +1082,14 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void chooseMultipleImages() {
-        Intent pickImages = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        pickImages.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        pickImages.addCategory(Intent.CATEGORY_OPENABLE);
-        pickImages.setType("image/*");
-
-        startActivityForResult(pickImages, SELECT_MULTIPLE_IMAGES);
-    }
+//    private void chooseMultipleImages() {
+//        Intent pickImages = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//        pickImages.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//        pickImages.addCategory(Intent.CATEGORY_OPENABLE);
+//        pickImages.setType("image/*");
+//
+//        startActivityForResult(pickImages, SELECT_MULTIPLE_IMAGES);
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -1100,18 +1150,18 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private byte[] getFileDataFromFile(File mediaFile) {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(mediaFile);
-            byte[] data = new byte[(int) mediaFile.length()];
-            fileInputStream.read(data);
-            fileInputStream.close();
-            return data;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    private byte[] getFileDataFromFile(File mediaFile) {
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream(mediaFile);
+//            byte[] data = new byte[(int) mediaFile.length()];
+//            fileInputStream.read(data);
+//            fileInputStream.close();
+//            return data;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     private boolean isPdfFile(Uri uri) {
         ContentResolver contentResolver = ReceivedRequestDetailsActivity.this.getContentResolver();
@@ -1194,44 +1244,44 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void handleSelectedImage(Uri selectedImage) {
-        try {
-            Bitmap main_bitmap;
-
-            if (selectedImage.getScheme().equals("file")) {
-                String filePath = selectedImage.getPath();
-                Log.d("CameraResult", "File path: " + filePath);
-                main_bitmap = BitmapFactory.decodeFile(filePath);
-
-                if (main_bitmap == null) {
-                    Log.e("CameraResult", "Failed to decode file: " + filePath);
-                } else {
-                    Log.d("CameraResult", "main_bitmap: " + main_bitmap);
-                }
-            } else {
-                main_bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                Log.d("CameraResult", "main_bitmap: " + main_bitmap.toString());
-            }
-            bitmap = CompressImage(main_bitmap);
-            IVPreviewImage.setImageBitmap(bitmap);
-            selectedImagesList.add(selectedImage);
-            Log.d("selectedImagesList", "selectedImagesListFromHandle: " + selectedImagesList.toString());
-
-            imageSelected = true;
-            imageAdapter.notifyDataSetChanged();
-
-            if (selectedImagesList.isEmpty()) {
-                imageRecvRelativeLayput.setVisibility(View.GONE);
-            } else {
-                imageRecvRelativeLayput.setVisibility(View.VISIBLE);
-            }
-
-            Log.d("afterNotify", selectedImagesList.toString());
-            IVPreviewImage.setTag(selectedImage.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void handleSelectedImage(Uri selectedImage) {
+//        try {
+//            Bitmap main_bitmap;
+//
+//            if (selectedImage.getScheme().equals("file")) {
+//                String filePath = selectedImage.getPath();
+//                Log.d("CameraResult", "File path: " + filePath);
+//                main_bitmap = BitmapFactory.decodeFile(filePath);
+//
+//                if (main_bitmap == null) {
+//                    Log.e("CameraResult", "Failed to decode file: " + filePath);
+//                } else {
+//                    Log.d("CameraResult", "main_bitmap: " + main_bitmap);
+//                }
+//            } else {
+//                main_bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+//                Log.d("CameraResult", "main_bitmap: " + main_bitmap.toString());
+//            }
+//            bitmap = CompressImage(main_bitmap);
+//            IVPreviewImage.setImageBitmap(bitmap);
+//            selectedImagesList.add(selectedImage);
+//            Log.d("selectedImagesList", "selectedImagesListFromHandle: " + selectedImagesList.toString());
+//
+//            imageSelected = true;
+//            imageAdapter.notifyDataSetChanged();
+//
+//            if (selectedImagesList.isEmpty()) {
+//                imageRecvRelativeLayput.setVisibility(View.GONE);
+//            } else {
+//                imageRecvRelativeLayput.setVisibility(View.VISIBLE);
+//            }
+//
+//            Log.d("afterNotify", selectedImagesList.toString());
+//            IVPreviewImage.setTag(selectedImage.toString());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void handleSelectedImage1(Uri selectedImage) {
         if (selectedImage != null) {
@@ -1366,4 +1416,34 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
+    public void openKhalti(String exp_id, Long amt) {
+        Config config = new Config.Builder(Constant.pub, exp_id, "Main", amt, new OnCheckOutListener() {
+            @Override
+            public void onError(@NonNull String action, @NonNull Map<String, String> errorMap) {
+                Log.i(action, errorMap.toString());
+            }
+
+            @Override
+            public void onSuccess(@NonNull Map<String, Object> data) {
+                Log.i("success", data.toString());
+            }
+        })
+                .paymentPreferences(new ArrayList<PaymentPreference>() {{
+                    add(PaymentPreference.KHALTI);
+                    add(PaymentPreference.EBANKING);
+                    add(PaymentPreference.MOBILE_BANKING);
+                    add(PaymentPreference.CONNECT_IPS);
+                    add(PaymentPreference.SCT);
+                }})
+//                .productUrl("http://example.com/product")
+                .mobile("9804059852")
+                .build();
+
+        KhaltiCheckOut khaltiCheckOut = new KhaltiCheckOut(this, config);
+        khaltiCheckOut.show();
+    }
+
+
 }

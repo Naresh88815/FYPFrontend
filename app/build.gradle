@@ -25,6 +25,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+
 }
 
 
@@ -56,8 +58,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.1'
     implementation 'id.zelory:compressor:1.0.4'
-
-
+//    implementation "com.khalti:checkout-android:"
+    implementation ('com.khalti:khalti-android:2.04.00') {
+        transitive = true
+    }
 //    implementation 'com.google.firebase:firebase-analytics-ktx:21.3.0'
 //    implementation 'com.google.firebase:firebase-auth-ktx:22.1.1'
 //    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.4.1'

@@ -437,13 +437,13 @@ public class RequestDetailsActivity extends AppCompatActivity {
     };
 
 
-    public void cancelImage() {
-        IVPreviewImage.setImageResource(android.R.color.transparent);
-        IVPreviewImage.setVisibility(View.GONE);
-        after_transfer_image.setVisibility(View.GONE);
-        imageSelected = false;
-        close_icon.setVisibility(View.GONE);
-    }
+//    public void cancelImage() {
+//        IVPreviewImage.setImageResource(android.R.color.transparent);
+//        IVPreviewImage.setVisibility(View.GONE);
+//        after_transfer_image.setVisibility(View.GONE);
+//        imageSelected = false;
+//        close_icon.setVisibility(View.GONE);
+//    }
 
     private void uploadImg() {
 
@@ -545,33 +545,15 @@ public class RequestDetailsActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+
+//    private void chooseMultipleImages() {
+//        Intent pickImages = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//        pickImages.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//        pickImages.addCategory(Intent.CATEGORY_OPENABLE);
+//        pickImages.setType("image/*");
 //
-//        if (resultCode == RESULT_OK && requestCode == SELECT_IMAGE) {
-//            if (data != null && data.getData() != null) {
-//                // Image selected from the gallery
-//                Uri selectedImage = data.getData();
-//                try {
-//                    // Handle the selected image here (e.g., upload it)
-//                    handleSelectedImage(selectedImage);
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        }
+//        startActivityForResult(pickImages, SELECT_MULTIPLE_IMAGES);
 //    }
-
-
-    private void chooseMultipleImages() {
-        Intent pickImages = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        pickImages.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        pickImages.addCategory(Intent.CATEGORY_OPENABLE);
-        pickImages.setType("image/*");
-
-        startActivityForResult(pickImages, SELECT_MULTIPLE_IMAGES);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -633,18 +615,18 @@ public class RequestDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private byte[] getFileDataFromFile(File mediaFile) {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(mediaFile);
-            byte[] data = new byte[(int) mediaFile.length()];
-            fileInputStream.read(data);
-            fileInputStream.close();
-            return data;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    private byte[] getFileDataFromFile(File mediaFile) {
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream(mediaFile);
+//            byte[] data = new byte[(int) mediaFile.length()];
+//            fileInputStream.read(data);
+//            fileInputStream.close();
+//            return data;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     private byte[] getPdfFileBytes(Uri pdfUri) {
         try (InputStream inputStream = RequestDetailsActivity.this.getContentResolver().openInputStream(pdfUri)) {
@@ -746,44 +728,44 @@ public class RequestDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void handleSelectedImage(Uri selectedImage) {
-        try {
-            Bitmap main_bitmap;
-
-            if (selectedImage.getScheme().equals("file")) {
-                String filePath = selectedImage.getPath();
-                Log.d("CameraResult", "File path: " + filePath);
-                main_bitmap = BitmapFactory.decodeFile(filePath);
-
-                if (main_bitmap == null) {
-                    Log.e("CameraResult", "Failed to decode file: " + filePath);
-                } else {
-                    Log.d("CameraResult", "main_bitmap: " + main_bitmap);
-                }
-            } else {
-                main_bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                Log.d("CameraResult", "main_bitmap: " + main_bitmap.toString());
-            }
-            bitmap = CompressImage(main_bitmap);
-            IVPreviewImage.setImageBitmap(bitmap);
-            selectedImagesList.add(selectedImage);
-            Log.d("selectedImagesList", "selectedImagesListFromHandle: " + selectedImagesList.toString());
-
-            imageSelected = true;
-            imageAdapter.notifyDataSetChanged();
-
-            if (selectedImagesList.isEmpty()) {
-                imageRecvRelativeLayput.setVisibility(View.GONE);
-            } else {
-                imageRecvRelativeLayput.setVisibility(View.VISIBLE);
-            }
-
-            Log.d("afterNotify", selectedImagesList.toString());
-            IVPreviewImage.setTag(selectedImage.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void handleSelectedImage(Uri selectedImage) {
+//        try {
+//            Bitmap main_bitmap;
+//
+//            if (selectedImage.getScheme().equals("file")) {
+//                String filePath = selectedImage.getPath();
+//                Log.d("CameraResult", "File path: " + filePath);
+//                main_bitmap = BitmapFactory.decodeFile(filePath);
+//
+//                if (main_bitmap == null) {
+//                    Log.e("CameraResult", "Failed to decode file: " + filePath);
+//                } else {
+//                    Log.d("CameraResult", "main_bitmap: " + main_bitmap);
+//                }
+//            } else {
+//                main_bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+//                Log.d("CameraResult", "main_bitmap: " + main_bitmap.toString());
+//            }
+//            bitmap = CompressImage(main_bitmap);
+//            IVPreviewImage.setImageBitmap(bitmap);
+//            selectedImagesList.add(selectedImage);
+//            Log.d("selectedImagesList", "selectedImagesListFromHandle: " + selectedImagesList.toString());
+//
+//            imageSelected = true;
+//            imageAdapter.notifyDataSetChanged();
+//
+//            if (selectedImagesList.isEmpty()) {
+//                imageRecvRelativeLayput.setVisibility(View.GONE);
+//            } else {
+//                imageRecvRelativeLayput.setVisibility(View.VISIBLE);
+//            }
+//
+//            Log.d("afterNotify", selectedImagesList.toString());
+//            IVPreviewImage.setTag(selectedImage.toString());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void handleSelectedImage1(Uri selectedImage) {
         if (selectedImage != null) {
@@ -826,28 +808,28 @@ public class RequestDetailsActivity extends AppCompatActivity {
         showBottomSheetDialog();
     }
 
-    private void chooseTransferImage() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String imageFileName = timeStamp + ".jpg";
-
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File imageFile = new File(storageDir, imageFileName);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            outputFileUri = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
-                    "com.application.expensemanager" + ".provider", imageFile);
-
-        } else {
-            outputFileUri = Uri.fromFile(imageFile);
-        }
-        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        Intent takePhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        takePhoto.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-
-        Intent chooser = Intent.createChooser(pickPhoto, "Select Image");
-        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{takePhoto});
-
-        startActivityForResult(chooser, SELECT_IMAGE);
-    }
+//    private void chooseTransferImage() {
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+//        String imageFileName = timeStamp + ".jpg";
+//
+//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        File imageFile = new File(storageDir, imageFileName);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            outputFileUri = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
+//                    "com.application.expensemanager" + ".provider", imageFile);
+//
+//        } else {
+//            outputFileUri = Uri.fromFile(imageFile);
+//        }
+//        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        Intent takePhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        takePhoto.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+//
+//        Intent chooser = Intent.createChooser(pickPhoto, "Select Image");
+//        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{takePhoto});
+//
+//        startActivityForResult(chooser, SELECT_IMAGE);
+//    }
 
     private void showBottomSheetDialog() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
