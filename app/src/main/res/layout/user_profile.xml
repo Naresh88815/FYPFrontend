@@ -120,10 +120,10 @@
 
                 <ImageView
                     android:id="@+id/upi_icon"
-                    android:layout_width="@dimen/_20sdp"
+                    android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentStart="true"
-                    android:src="@drawable/upi_icon" />
+                    android:src="@drawable/khalti_logo" />
 
                 <TextView
                     android:id="@+id/userUPIID"
@@ -213,44 +213,17 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:text="IFSC code: "
-                        android:textColor="@color/blue_text"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/userIfscCode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/blue_text"
-                        android:textSize="@dimen/_14sdp" />
-
-                </LinearLayout>
-
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/userUpiAddBtn"
+                android:id="@+id/userKhaltiAddBtn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/corner_cardview"
                 android:backgroundTint="@color/gray3"
                 android:gravity="center"
-                android:text="Add UPI ID"
+                android:text="Add Khalti ID"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textStyle="bold" />

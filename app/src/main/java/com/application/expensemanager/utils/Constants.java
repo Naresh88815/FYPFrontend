@@ -31,7 +31,7 @@ public class Constants {
     public static String END_POINT = BASE_URL+"api/";
     public static String LOGIN = END_POINT+"login";
     public static String LOGOUT = END_POINT+"logout";
-    public static String UPDATE_BANK_DETAILS = END_POINT+"login.php";
+    public static String UPDATE_BANK_DETAILS = END_POINT+"updateAccountNo";
     public static String ADD_LABEL =END_POINT +  "exp_label";
     public static String ADD_HEAD =END_POINT +  "exp_head";
     public static String ADD_USER =END_POINT +  "user";
@@ -46,6 +46,10 @@ public class Constants {
     public static String COUNT_EXPENSE = END_POINT + "expense_summary";
     public static String EXP_EXPENSE = END_POINT + "expenses";
     public static String publicIp = "0";
+
+    public static String VIEW_PROFILE =END_POINT+ "viewProfile";
+    public static String UPDATE_KHALTI_ID =END_POINT+ "updateKhaltiId";
+
 
     public static String getAppVersionName(Context context) {
         String appVersionName = "";

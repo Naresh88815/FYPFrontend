@@ -1,6 +1,7 @@
 package com.application.expensemanager.fragments;
 
 import static com.application.expensemanager.utils.MyApplication.apinetwork;
+import static com.application.expensemanager.utils.MyApplication.mSp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 public class UserProfile extends Fragment {
     View view;
 
-    String userUpiID, userAccountNo, userIfscCode;
+    String newKhaltiId,userKhaltiId, newUserAccountNo,userAccountNo, userIfscCode;
     ImageView editUPI, editBankDetails;
     AppCompatButton logoutUserBtn, addUpiBtn, addBankDetailsBtn;
     TextView name, email, phone, upiId, accountNo, ifscCode;
@@ -114,12 +115,6 @@ public class UserProfile extends Fragment {
         return view;
     }
 
-    private void getProfileData() {
-        name.setText(MyApplication.mSp.getKey(SPCsnstants.name));
-        email.setText(MyApplication.mSp.getKey(SPCsnstants.email));
-        phone.setText(MyApplication.mSp.getKey(SPCsnstants.user_phone));
-    }
-
     public void initView() {
         editUPI = view.findViewById(R.id.editUPI);
         editBankDetails = view.findViewById(R.id.editBankDetails);
@@ -129,8 +124,7 @@ public class UserProfile extends Fragment {
         phone = view.findViewById(R.id.phone);
         upiId = view.findViewById(R.id.userUPIID);
         accountNo = view.findViewById(R.id.userAccountNo);
-        ifscCode = view.findViewById(R.id.userIfscCode);
-        addUpiBtn = view.findViewById(R.id.userUpiAddBtn);
+        addUpiBtn = view.findViewById(R.id.userKhaltiAddBtn);
         addBankDetailsBtn = view.findViewById(R.id.userBankDetailsAddBtn);
         userUpiIdLayout = view.findViewById(R.id.userUpiIdLayout);
         userBankDetailsLayout = view.findViewById(R.id.userBankDetailsLayout);
@@ -144,8 +138,8 @@ public class UserProfile extends Fragment {
         updateUPIET = sheet.findViewById(R.id.updateUPIET);
         UPISubmitBtn = sheet.findViewById(R.id.UPISubmitBtn);
 
-        if (userUpiID != null && !userUpiID.equals("null") && !userUpiID.isEmpty()) {
-            updateUPIET.setText(userUpiID);
+        if (userKhaltiId != null && !userKhaltiId.equals("null") && !userKhaltiId.isEmpty()) {
+            updateUPIET.setText(userKhaltiId);
         } else {
             updateUPIET.setText("");
             updateUPIET.setHint("Enter UPI ID");
@@ -155,14 +149,16 @@ public class UserProfile extends Fragment {
         UPISubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userUpiID = updateUPIET.getText().toString();
-                if (!Utils.isUpiIdValid(userUpiID)) {
-                    updateUPIET.setError("Please Enter Valid UPI");
-                } else if (userUpiID.isEmpty()) {
+                newKhaltiId = updateUPIET.getText().toString();
+//                if (!Utils.isUpiIdValid(userKhaltiId)) {
+//                    updateUPIET.setError("Please Enter Valid UPI");
+//                }
+//                else
+                if (newKhaltiId.isEmpty()) {
                     updateUPIET.setError("This field is required");
                     updateUPIET.requestFocus();
                 } else {
-//                    setUpiID();
+                    updateKhaltiId();
                     sheet.cancel();
                 }
             }
@@ -199,23 +195,25 @@ public class UserProfile extends Fragment {
         bankDetailsSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userAccountNo = updateAccountNoET.getText().toString();
-                userIfscCode = updateIfscCodeET.getText().toString();
+                newUserAccountNo = updateAccountNoET.getText().toString();
+//                userIfscCode = updateIfscCodeET.getText().toString();
 
-                if (userAccountNo.isEmpty()) {
+                if (newUserAccountNo.isEmpty()) {
                     updateAccountNoET.setError("This field is required");
                     updateAccountNoET.requestFocus();
-                } else if (userIfscCode.isEmpty()) {
-                    updateIfscCodeET.setError("This field is required");
-                    updateIfscCodeET.requestFocus();
-                } else if (!Utils.isValidAccountNumber(userAccountNo)) {
-                    updateAccountNoET.setError("Please Enter Valid Account Number");
-                    updateAccountNoET.requestFocus();
-                } else if (!Utils.isValidIFSCCode(userIfscCode)) {
-                    updateIfscCodeET.setError("Please Enter Valid IFSC Code");
-                    updateIfscCodeET.requestFocus();
-                } else {
-//                    setBankDetails();
+                }
+//                else if (userIfscCode.isEmpty()) {
+//                    updateIfscCodeET.setError("This field is required");
+//                    updateIfscCodeET.requestFocus();
+//                } else if (!Utils.isValidAccountNumber(userAccountNo)) {
+//                    updateAccountNoET.setError("Please Enter Valid Account Number");
+//                    updateAccountNoET.requestFocus();
+//                } else if (!Utils.isValidIFSCCode(userIfscCode)) {
+//                    updateIfscCodeET.setError("Please Enter Valid IFSC Code");
+//                    updateIfscCodeET.requestFocus();
+//                }
+                else {
+                    updateBankDetails();
                     sheet.cancel();
                 }
             }
@@ -223,78 +221,79 @@ public class UserProfile extends Fragment {
     }
 
 
-//    VolleyResponse vr = new VolleyResponse() {
-//        @Override
-//        public void onResponse(JSONObject obj) throws Exception {
-//            Utils.dismisProgressDialog();
-//        }
-//
-//        @Override
-//        public void onResponse2(String url_type, JSONObject json) throws Exception {
-//            Utils.dismisProgressDialog();
-//            Log.d("jsonobject", json.toString());
-//            try {
-//                if (url_type.equals("viewprofile")) {
-//                    if (json != null) {
-//                        boolean status = json.getBoolean("status");
-//                        Log.d("viewprofile_response", json.toString());
-//                        String user_name = json.getString("name");
-//                        String user_email = json.getString("email");
-//                        String user_phone = json.getString("user_phone");
-//                        String user_upi_id = json.getString("upi_id");
-//                        String user_account_number = json.getString("account_no");
+    VolleyResponse vr = new VolleyResponse() {
+        @Override
+        public void onResponse(JSONObject obj) throws Exception {
+            Utils.dismisProgressDialog();
+        }
+
+        @Override
+        public void onResponse2(String url_type, JSONObject json) throws Exception {
+            Utils.dismisProgressDialog();
+            Log.d("jsonobject", json.toString());
+            try {
+                if (url_type.equals("viewprofile")) {
+                    if (json != null) {
+                        boolean status = json.getBoolean("status");
+                        if (status) {
+                            JSONObject userObject = json.getJSONObject("user");
+                            String user_name = userObject.getString("name");
+                            String user_email = userObject.getString("email");
+                            String user_phone = userObject.getString("user_phone");
+                            String user_khalti_id = userObject.getString("khalti_id");
+                            String user_account_number = userObject.getString("account_no");
 //                        String user_ifsc_code = json.getString("ifsc_code");
-////                      Toast.makeText(getContext(), "" + json.getString("msg"), Toast.LENGTH_SHORT).show();
-//                        if (status) {
-//                            name.setText(user_name);
-//                            email.setText(user_email);
-//                            phone.setText(user_phone);
-//                            upiId.setText(user_upi_id);
-//                            accountNo.setText(user_account_number);
+//                      Toast.makeText(getContext(), "" + json.getString("msg"), Toast.LENGTH_SHORT).show();
+                            name.setText(user_name);
+                            email.setText(user_email);
+                            phone.setText(user_phone);
+                            upiId.setText(user_khalti_id);
+                            accountNo.setText(user_account_number);
 //                            ifscCode.setText(user_ifsc_code);
-//
-//                            userUpiID = user_upi_id;
-//                            userAccountNo = user_account_number;
+
+                            userKhaltiId = user_khalti_id;
+                            userAccountNo = user_account_number;
 //                            userIfscCode = user_ifsc_code;
-//                        }
-//
-//                        //Check UPI ID and Bank Details is null or not
-//                        if (user_upi_id.isEmpty() || user_upi_id.equals("null")){
-//                            userUpiIdLayout.setVisibility(View.GONE);
-//                            addUpiBtn.setVisibility(View.VISIBLE);
-//                        } else {
-//                            userUpiIdLayout.setVisibility(View.VISIBLE);
-//                            addUpiBtn.setVisibility(View.GONE);
-//                        } if (user_account_number.isEmpty() || user_account_number.equals("null") || user_ifsc_code.isEmpty() || user_ifsc_code.equals("null")){
-//                            userBankDetailsLayout.setVisibility(View.GONE);
-//                            addBankDetailsBtn.setVisibility(View.VISIBLE);
-//                        } else {
-//                            userBankDetailsLayout.setVisibility(View.VISIBLE);
-//                            addBankDetailsBtn.setVisibility(View.GONE);
-//                        }
-//
-//                    } else {
-//                        Toast.makeText(getContext(), "Error Getting Data", Toast.LENGTH_SHORT).show();
-//                    }
-//                } else if (url_type.equals("update")) {
-//                    Log.d("update_response", json.toString());
-//                    boolean status = json.getBoolean("status");
-//                    if (status) {
-//                        getProfileData();
-//                        Toast.makeText(getContext(), "Update successful", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        String errorMessage = json.getString("msg");
-//                        Toast.makeText(getContext(), "Update failed: " + errorMessage, Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                // Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//
-//    };
+
+                            //Check UPI ID and Bank Details is null or not
+                            if (user_khalti_id.isEmpty() || user_khalti_id.equals("null")) {
+                                userUpiIdLayout.setVisibility(View.GONE);
+                                addUpiBtn.setVisibility(View.VISIBLE);
+                            } else {
+                                userUpiIdLayout.setVisibility(View.VISIBLE);
+                                addUpiBtn.setVisibility(View.GONE);
+                            }
+                            if (user_account_number.isEmpty() || user_account_number.equals("null")) {
+                                userBankDetailsLayout.setVisibility(View.GONE);
+                            addBankDetailsBtn.setVisibility(View.VISIBLE);
+                            } else {
+                                userBankDetailsLayout.setVisibility(View.VISIBLE);
+                            addBankDetailsBtn.setVisibility(View.GONE);
+                            }
+
+                        } else {
+                            Toast.makeText(getContext(), "Error Getting Data", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }else if (url_type.equals("update")) {
+                    Log.d("update_response", json.toString());
+                    boolean status = json.getBoolean("status");
+                    if (status) {
+                        getProfileData();
+                        Toast.makeText(getContext(), "Update successful", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String errorMessage = json.getString("msg");
+                        Toast.makeText(getContext(), "Update failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    };
 
     private void logoutAndRemoveCredentials() {
         MyApplication.mSp.setKey(SPCsnstants.IS_LOGGED_IN, SPCsnstants.NO);
@@ -306,7 +305,7 @@ public class UserProfile extends Fragment {
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("type", "logout");
-        apinetwork.requestWithJsonObject(Constants.LOGOUT, params, vr, "logout");
+        apinetwork.requestWithJsonObject(Constants.LOGOUT, params, vr1, "logout");
 
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -315,7 +314,7 @@ public class UserProfile extends Fragment {
 
     }
 
-    VolleyResponse vr = new VolleyResponse() {
+    VolleyResponse vr1 = new VolleyResponse() {
         @Override
         public void onResponse(JSONObject obj) throws Exception {
             Utils.dismisProgressDialog();
@@ -343,28 +342,30 @@ public class UserProfile extends Fragment {
     };
 
 
-//    private void getProfileData(){
-//        Utils.showProgressDialog(getActivity(),false);
-//        HashMap<String, String> params = new HashMap<>();
-//        params.put("type", "viewprofile");
-//        apinetwork.requestWithJsonObject(Constants.VIEW_PROFILE, params, vr, "viewprofile");
-//    }
+    private void getProfileData(){
+        Utils.showProgressDialog(getActivity(),false);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type", "viewprofile");
+        params.put("emp_id",MyApplication.mSp.getKey(SPCsnstants.id));
+        apinetwork.requestWithJsonObject(Constants.VIEW_PROFILE, params, vr, "viewprofile");
+    }
 
-//    private void setUpiID(){
-//        Utils.showProgressDialog(getActivity(),false);
-//        HashMap<String, String> params = new HashMap<>();
-//        params.put("type", "update");
-//        params.put("upi_id", userUpiID);
-//        apinetwork.requestWithJsonObject(Constants.UPDATE_BANK_DETAILS, params, vr, "update");
-//    }
-//
-//    private void setBankDetails(){
-//        Utils.showProgressDialog(getActivity(),false);
-//        HashMap<String, String> params = new HashMap<>();
-//        params.put("type", "update");
-//        params.put("account_no", userAccountNo);
-//        params.put("ifsc_code", userIfscCode);
-//        apinetwork.requestWithJsonObject(Constants.UPDATE_BANK_DETAILS, params, vr, "update");
-//    }
+    private void updateKhaltiId() {
+        Utils.showProgressDialog(getActivity(), false);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type", "update");
+        params.put("new_khalti_id", newKhaltiId);
+        params.put("emp_id", MyApplication.mSp.getKey(SPCsnstants.id));
+        apinetwork.requestWithJsonObject(Constants.UPDATE_KHALTI_ID, params, vr, "update");
+    }
+
+    private void updateBankDetails(){
+        Utils.showProgressDialog(getActivity(),false);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type", "update");
+        params.put("new_account_no", newUserAccountNo);
+        params.put("emp_id", MyApplication.mSp.getKey(SPCsnstants.id));
+        apinetwork.requestWithJsonObject(Constants.UPDATE_BANK_DETAILS, params, vr, "update");
+    }
 
 }
