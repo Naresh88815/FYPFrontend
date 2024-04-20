@@ -15,15 +15,8 @@ public class ExpenseLabelModel {
         return expenseLabel;
     }
 
-    public void setExpenseLabel(String expenseLabel) {
-        this.expenseLabel = expenseLabel;
-    }
-
     public String getLabelId() {
         return labelId;
     }
 
-    public void setLabelId(String labelId) {
-        this.labelId = labelId;
-    }
 }

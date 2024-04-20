@@ -70,9 +70,7 @@ public class AdminMainActivity extends AppCompatActivity {
         setContentView(R.layout.admin_main_activity);
         initView();
         selectedtab();
-//        getProfileData();
         openBottomNavigation();
-
     }
 
     private void selectedtab(){
@@ -94,12 +92,6 @@ public class AdminMainActivity extends AppCompatActivity {
             adminBottomNavigationView.setSelectedItemId(R.id.navigate_dash_admin);
         }
     }
-//    private void getProfileData(){
-////        Utils.showProgressDialog(AdminMainActivity.this,false);
-//        HashMap<String, String> params = new HashMap<>();
-//        params.put("type", "viewprofile");
-//        apinetwork.requestWithJsonObject(Constants.VIEW_PROFILE, params, vr, "viewprofile");
-//    }
 
     private void getIntentData() {
         if (MyApplication.mSp.getKey(SPCsnstants.super_user).equals("0")) {
@@ -126,9 +118,6 @@ public class AdminMainActivity extends AppCompatActivity {
         ColorStateList colorStateList = getResources().getColorStateList(R.color.bottom_nav_icon_colors);
         //  ColorStateList colorbgList = getResources().getColorStateList(R.color.white);
         adminBottomNavigationView.setItemIconTintList(colorStateList);
-
-// Set the background resource for item background
-        //    adminBottomNavigationView.setItemBackgroundResource(R.drawable.bg_bottom_nav_item);
 
 // Set color state list for item icons
         ColorStateList iconColorStateList = getResources().getColorStateList(R.color.bottom_nav_icon_colors);
@@ -169,49 +158,8 @@ public class AdminMainActivity extends AppCompatActivity {
 
     }
 
-//    VolleyResponse vr = new VolleyResponse() {
-//        @Override
-//        public void onResponse(JSONObject obj) throws Exception {
-//            Utils.dismisProgressDialog();
-//        }
-//
-//        @Override
-//        public void onResponse2(String url_type, JSONObject json) throws Exception {
-//            Log.d("jsonobject", json.toString());
-//            try {
-//                if (url_type.equals("viewprofile")) {
-//                    if (json != null) {
-//                        boolean status = json.getBoolean("status");
-//                        String user_name = json.getString("name");
-//                        String user_email = json.getString("email");
-//                        String user_phone = json.getString("user_phone");
-//                        String super_user = json.getString("super_user");
-////                        Toast.makeText(AdminMainActivity.this, "super user " +super_user, Toast.LENGTH_SHORT).show();
-//                        if (status) {
-//                            saveCredentials(json);
-//                        }
-//
-//                    }
-//                    else {
-//                        Toast.makeText(AdminMainActivity.this, "Error Getting Data", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                // Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    };
-
     private void openBottomNavigation(){
-//        MyApplication.mSp.setKey(SPCsnstants.IS_LOGGED_IN, SPCsnstants.YES);
-//        MyApplication.mSp.setKey(SPCsnstants.id, user_jsonObject.getString("user_id"));
-//        MyApplication.mSp.setKey(SPCsnstants.name, user_jsonObject.getString("name"));
-//        MyApplication.mSp.setKey(SPCsnstants.user_phone, user_jsonObject.getString("user_phone"));
-//        MyApplication.mSp.setKey(SPCsnstants.email, user_jsonObject.getString("email"));
-//        MyApplication.mSp.setKey(SPCsnstants.super_user, user_jsonObject.getString("super_user"));
-//        initView();
-//        selectedtab();
+        selectedtab();
         adminBottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override

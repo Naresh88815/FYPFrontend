@@ -39,16 +39,6 @@ public class MyApplication extends Application {
     public RequestQueue getRequestQueue(){
         return mRequest;
     }
-    public static String getToken()
-    {
-        String token = Utils.encryptedValue("0");
-        String user_toekn =  Constants.getcustomer_id(instance);
-        if (user_toekn.equals("0"))
-        {
-            return token;
-        }
-        return user_toekn;
-    }
 
 
 

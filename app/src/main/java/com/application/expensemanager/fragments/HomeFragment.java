@@ -332,31 +332,6 @@ public class HomeFragment extends Fragment implements Backpressedlistener {
             }
         });
 
-
-//        amountPaidTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                if (checkedId == R.id.upiRadioButton) {
-//                    upiIdEditText.setVisibility(View.VISIBLE);
-//                    bankAccountDetailsLayout.setVisibility(View.GONE);
-//                    nameEditText.setText("");
-//                    accountNumberEditText.setText("");
-//                    ifscCodeEditText.setText("");
-//                } else if (checkedId == R.id.bankRadioButton) {
-//                    bankAccountDetailsLayout.setVisibility(View.VISIBLE);
-//                    upiIdEditText.setVisibility(View.GONE);
-//                    upiIdEditText.setText("");
-//                } else {
-//                    upiIdEditText.setVisibility(View.GONE);
-//                    bankAccountDetailsLayout.setVisibility(View.GONE);
-//                    nameEditText.setText("");
-//                    accountNumberEditText.setText("");
-//                    ifscCodeEditText.setText("");
-//                    upiIdEditText.setText("");
-//                }
-//            }
-//        });
-
         optionItems.add(new ChooseFileOptionModel("Gallery", R.drawable.gallery_icon));
         optionItems.add(new ChooseFileOptionModel("Camera", R.drawable.camera_icon));
         optionItems.add(new ChooseFileOptionModel("PDF", R.drawable.baseline_picture_as_pdf_24));
@@ -1003,16 +978,6 @@ public class HomeFragment extends Fragment implements Backpressedlistener {
         return byteArrayOutputStream.toByteArray();
     }
 
-    private byte[] getFileDataFromFile(File file) {
-        byte[] bytes = new byte[(int) file.length()];
-        try (FileInputStream fis = new FileInputStream(file)) {
-            fis.read(bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bytes;
-    }
-
     private byte[] getPdfFileBytes(Uri pdfUri) {
         try (InputStream inputStream = getContext().getContentResolver().openInputStream(pdfUri)) {
             if (inputStream != null) {
@@ -1037,141 +1002,8 @@ public class HomeFragment extends Fragment implements Backpressedlistener {
         return type != null && type.startsWith("application/pdf");
     }
 
-
     private boolean timeoutErrorOccurred = false;
 
-
-//    private void createExpense(String paymentType, String accountType, String selectedBankId, String paymentToBePaidType, String upiIdText, String nameText, String accountNumberText, String ifscCodeText) {
-//        if (Utils.isNetworkAvailable(getContext())) {
-//            Utils.showProgressDialog(getContext(), false);
-//            String url = Constants.CREATE_EXPENSE;
-//            if (!timeoutErrorOccurred) {
-//                VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
-//                        new Response.Listener<NetworkResponse>() {
-//                            @Override
-//                            public void onResponse(NetworkResponse response) {
-//                                Utils.dismisProgressDialog();
-//                                try {
-//                                    if (!timeoutErrorOccurred) {
-//                                        String responseData = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-//                                        Log.d("ResponseString", responseData);
-//
-//                                        JSONObject json = new JSONObject(responseData);
-//                                        boolean status = json.getBoolean("status");
-//                                        String msg = json.getString("message");
-//                                        if (status) {
-//                                            amount = "";
-//                                            bitmap = null;
-//                                            selectedlabelId = "";
-//                                            selectedHeadId = "";
-//                                            uploadImgBtn.setVisibility(View.GONE);
-//                                            submitBtn.setVisibility(View.GONE);
-//                                            searchLabelRecyclerView.setVisibility(View.VISIBLE);
-//                                            expenseAmountET.setVisibility(View.GONE);
-//                                            createExpenseLabelBtn.setVisibility(View.VISIBLE);
-//                                            labelsList.clear();
-//                                            Log.d("is_role", is_role);
-//
-//                                            if (is_role.equals(SPCsnstants.user)) {
-//                                                AdminMainActivity.adminBottomNavigationView.setSelectedItemId(R.id.navigate_requests);
-//                                                AdminMainActivity.title.setText("Expense Manager");
-//                                            } else {
-//                                                AdminMainActivity.adminBottomNavigationView.setSelectedItemId(R.id.navigate_received_requests);
-//                                                AdminMainActivity.title.setText("Expense Manager");
-//                                            }
-//                                        }
-//                                        Toast.makeText(getContext(), "" + msg, Toast.LENGTH_LONG).show();
-//                                        Log.d("ErrorType", "" + msg);
-//                                    }
-//                                } catch (Exception e) {
-//                                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
-//                                    Log.d("ErrorType", "ErrorType: " + e.toString());
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                Utils.dismisProgressDialog();
-//                                if (error instanceof TimeoutError) {
-//                                    Log.e("VolleyTimeoutError", "Volley timeout error occurred");
-//                                    Toast.makeText(getContext(), "Expense created successfully.", Toast.LENGTH_SHORT).show();
-//                                    if (is_role.equals(SPCsnstants.user)) {
-//                                        AdminMainActivity.adminBottomNavigationView.setSelectedItemId(R.id.navigate_requests);
-//                                        AdminMainActivity.title.setText("Expense Manager");
-//                                    } else {
-//                                        AdminMainActivity.adminBottomNavigationView.setSelectedItemId(R.id.navigate_received_requests);
-//                                        AdminMainActivity.title.setText("Expense Manager");
-//                                    }
-//                                    timeoutErrorOccurred = true;
-//                                } else {
-//                                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        }
-//                ) {
-//                    @Override
-//                    protected Map<String, String> getParams() throws Error {
-//                        Map<String, String> params = new HashMap<>();
-//                        params.put("type", "create_expense");
-//                        params.put("emp_id", "" + MyApplication.mSp.getKey(SPCsnstants.id));
-//                        params.put("head_id", selectedHeadId);
-//                        params.put("label_id", selectedlabelId);
-//                        params.put("amount", amount);
-//                        params.put("note", str_note);
-//                        params.put("payment_type", paymentType);
-//                        Log.d("expense params", "" + params);
-//                        return params;
-//                    }
-//
-//                    @Override
-//                    protected Map<String, DataPart> getByteData() {
-//                        Map<String, DataPart> params = new HashMap<>();
-//                        Log.d("selectedImagesList", "Images: " + selectedImagesList.toString());
-//                        for (int i = 0; i < selectedImagesList.size(); i++) {
-//                            if (isPdfFile(selectedImagesList.get(i))) {
-//                                Uri pdfUri = selectedImagesList.get(i);
-//                                byte[] pdfByteArray = getPdfFileBytes(pdfUri);
-//                                if (pdfByteArray != null) {
-//                                    String imagename = Constants.getcustomer_id(getContext()) + System.currentTimeMillis() + i;
-//                                    Log.d("selectedImagesList", "Pdf after uploding: " + pdfByteArray.toString());
-//                                    params.put("image[" + i + "]", new DataPart(imagename + ".pdf", pdfByteArray));
-//                                } else {
-//                                    Toast.makeText(getContext(), "Failed to convert PDF file", Toast.LENGTH_SHORT).show();
-//                                }
-//                            } else {
-//                                Bitmap bitmap1 = null;
-//                                try {
-//                                    Log.d("selectedImagesList", "selectedImagesList before uploding images: " + selectedImagesList.toString() + "\n Size: " + selectedImagesList.size());
-//                                    bitmap1 = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), selectedImagesList.get(i));
-//                                    bitmap1 = CompressImage(bitmap1);
-//                                    String imagename = Constants.getcustomer_id(getContext()) + System.currentTimeMillis() + i;
-//                                    params.put("image[" + i + "]", new DataPart(imagename + ".jpg", getFileDataFromDrawable(bitmap1)));
-//                                } catch (IOException e) {
-//                                    throw new RuntimeException(e);
-//                                }
-//                            }
-//                        }
-//                        Log.d("FileUploadInParams", "FileUploadInParams: " + params);
-//                        return params;
-//                    }
-//
-//                    @Override
-//                    public RetryPolicy getRetryPolicy() {
-//                        return new DefaultRetryPolicy(
-//                                0,
-//                                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
-//                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-//                        );
-//                    }
-//                };
-//                Volley.newRequestQueue(getContext()).add(volleyMultipartRequest);
-//            } else {
-//                Toast.makeText(getContext(), "No internet connection", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
 private void createExpense(String paymentType) {
     if (Utils.isNetworkAvailable(getContext())) {
         Utils.showProgressDialog(getContext(), false);

@@ -71,43 +71,7 @@ import id.zelory.compressor.Compressor;
 
 public class Utils {
     private static AlertDialog dialog;
-    private static BottomSheetDialog folderListDialog, createFDialog;
-    private static RecyclerView bd_RecyclerView;
-    public static boolean is_in_cart = false;
     public static JSONObject json;
-    public static String cc_name = "";
-    public static String category_name_wishlist = "";
-    public static int selected_book_id = 0;
-    public static final String AutoFocus = "AutoFocus";
-    public static final String UseFlash = "UseFlash";
-    private static CardView createFolder, moreItemCard;
-    private static TextView moreItemsVisible;
-    private static Button addBookBtn;
-    private static Boolean showAllFolderlist = false;
-
-
-    public static boolean is_contain_integer(String input1) {
-        boolean is_int = false;
-        char[] chars = input1.toCharArray();
-        StringBuilder sb = new StringBuilder();
-        for (char c : chars) {
-            if (Character.isDigit(c)) {
-                is_int = true;
-            }
-        }
-        return is_int;
-    }
-
-
-    private static int getAppVersion(Context context) {
-        try {
-            PackageInfo packageInfo = context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), 0);
-            return packageInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            throw new RuntimeException("Could not get package name: " + e);
-        }
-    }
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
@@ -116,16 +80,6 @@ public class Utils {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public static String generateRandom10DigitNumber() {
-        Random random = new Random();
-        long min = 1000000000L; // Minimum 10-digit number
-        long max = 9999999999L; // Maximum 10-digit number
-
-        // Generate a random number within the specified range
-        long random10DigitNumber = min + ((long) (random.nextDouble() * (max - min + 1)));
-
-        return "" + random10DigitNumber;
-    }
 
     public static void showProgressDialog(Context ctx, boolean cancelable) {
         ProgressBar progressBar;
@@ -161,89 +115,6 @@ public class Utils {
         }
     }
 
-
-
-    public static String convertTimeStamp(String timestamp_str) {
-        long timestamp = Long.parseLong(timestamp_str);
-
-        Date date = new Date(timestamp * 1000L);
-
-        // Define a SimpleDateFormat pattern for the desired datetime format
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a, dd MMM", Locale.ENGLISH);
-
-        // Format the Date object to a string in the desired format
-        String formattedDateTime = sdf.format(date);
-
-
-        return formattedDateTime;
-    }
-
-    public static String formatNumber(double number) {
-        String result;
-        if (number >= 1_000_000) {
-            result = String.format("%.1fm", number / 1_000_000);
-        } else if (number >= 1_000) {
-            result = String.format("%.1fk", number / 1_000);
-        } else {
-            result = String.format("%.0f", number);
-        }
-        return result;
-    }
-
-    public static String getOffPEr(String mrp, String selling_price) {
-        int mrp_db = Integer.parseInt(mrp);
-        int selling_db = Integer.parseInt(selling_price);
-        int discount_db = mrp_db - selling_db;
-        int per_discount = (discount_db / mrp_db) * 100;
-
-        return new DecimalFormat("##").format(per_discount) + "% off";
-
-    }
-
-
-    public static boolean isAppMinimized() {
-        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
-        ActivityManager.getMyMemoryState(appProcessInfo);
-        return appProcessInfo.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
-    }
-
-
-    public static String encryptedValue(String input) {
-        if (input == null || input.isEmpty()) {
-            return "";
-        }
-        int inputLen = input.length();
-        int randKey = (int) (Math.random() * 9 + 1);
-        int[] inputChr = new int[inputLen];
-        for (int i = 0; i < inputLen; i++) {
-            inputChr[i] = (int) input.charAt(i) - randKey;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i : inputChr) {
-            sb.append(i).append("a");
-        }
-        sb.append((int) (String.valueOf(randKey).charAt(0)) + 50);
-        return sb.toString();
-
-    }
-
-    public static String decryptedValue(String input) {
-        String[] inputArr = input.split("a");
-        int inputLen = inputArr.length - 1;
-        // int randKey = (int) inputArr[inputLen].charAt(0) - 50;
-        int val = Integer.parseInt(inputArr[inputLen]) - 50;
-        String randKey = String.valueOf((char) val);
-
-        int[] inputChr = new int[inputLen];
-        for (int i = 0; i < inputLen; i++) {
-            inputChr[i] = Integer.parseInt(inputArr[i]) + Integer.valueOf(randKey);
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i : inputChr) {
-            sb.append((char) (i));
-        }
-        return sb.toString();
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String getPath(final Context context, final Uri uri) {
@@ -318,19 +189,6 @@ public class Utils {
     }
 
 
-    public static Date getDateFromSTR(String date_Str) {
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
-        try {
-            date = format.parse(date_Str);
-            System.out.println(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
-
-
     private static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
@@ -362,24 +220,6 @@ public class Utils {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
-    public static Bitmap getBitmapFromUri(Context context, Uri uri) {
-        if (uri == null) {
-            return null;
-        }
-
-        try {
-            ContentResolver resolver = context.getContentResolver();
-            InputStream inputStream = resolver.openInputStream(uri);
-            if (inputStream != null) {
-                return BitmapFactory.decodeStream(inputStream);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
     private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
 
         Cursor cursor = null;
@@ -405,102 +245,6 @@ public class Utils {
                 cursor.close();
         }
         return null;
-    }
-
-//    public static void checkForAppUpdate(Context context) {
-//        if (Utils.isNetworkAvailable(context)) {
-////            String url = Constants.IN_APP_UPDATE;
-//            //String appVersion = ""+getAppVersion(context);
-//            String appVersion = ""+getAppVersion(context);
-//
-//            Map<String, String> params = new HashMap<>();
-//            params.put("type", "inapp_update");
-//            params.put("app_version", appVersion);
-//
-//            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url,
-//                    new JSONObject(params),
-//                    new Response.Listener<JSONObject>() {
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            try {
-//                                boolean inAppUpdateStatus = response.getBoolean("inapp_update_status");
-//                                String updateTitle = response.getString("update_title");
-//                                String updateDescription = response.getString("update_description");
-//                                String updateAppLink = response.getString("update_app_link");
-//                                String forceUpdate = response.getString("force_update");
-//
-//                                // Handle the update status and show dialog accordingly
-//                                if (inAppUpdateStatus) {
-//                                    showUpdateDialog(context, updateTitle, updateDescription, updateAppLink, forceUpdate);
-//                                }
-//
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                                Log.e("JSONError", "Error parsing in-app update response");
-//                            }
-//                        }
-//                    },
-//                    new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            Toast.makeText(context, "Error checking for app update", Toast.LENGTH_SHORT).show();
-//                            Log.e("VolleyError", error.toString());
-//                        }
-//                    });
-//
-//            Volley.newRequestQueue(context).add(jsonObjectRequest);
-//        } else {
-//            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-    private static void showUpdateDialog(Context context, String title, String description, final String appLink, String forceUpdate) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title);
-        builder.setMessage(description);
-        builder.setCancelable(!"1".equals(forceUpdate));
-
-        builder.setPositiveButton("Update Now", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Open the update link in the browser
-                openLinkInBrowser(context, appLink);
-            }
-        });
-
-        if (!"1".equals(forceUpdate)) {
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-        }
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private static void openLinkInBrowser(Context context, String link) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-        context.startActivity(browserIntent);
-    }
-
-
-    public static boolean isUpiIdValid(String upiId) {
-        String upiPattern = "^[a-zA-Z0-9.-]{2,256}@[a-zA-Z][a-zA-Z]{2,64}$";
-        Pattern pattern = Pattern.compile(upiPattern);
-        Matcher matcher = pattern.matcher(upiId);
-        return matcher.matches();
-    }
-
-
-    public static boolean isValidAccountNumber(String accountNumber) {
-        return accountNumber != null && !accountNumber.isEmpty() && accountNumber.matches("\\d+");
-    }
-
-    public static boolean isValidIFSCCode(String ifscCode) {
-        return ifscCode != null && ifscCode.length() == 11 && ifscCode.matches("[A-Z|a-z]{4}[0][\\d]{6}");
     }
 
 }

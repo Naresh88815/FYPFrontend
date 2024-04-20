@@ -107,8 +107,6 @@ public class ReceivedRequest extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //getPaginationExpenseView(paginationValue);
-        //getExpenseView();
     }
 
     @Override
@@ -174,17 +172,6 @@ public class ReceivedRequest extends Fragment {
             }
         });
 
-//        requestMoneyAdapter.setOnItemClickListener(new RequestMoneyAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(RequestMoneyModel model) {
-//                exp_id = model.getId(); // Assuming there is a method to get id from RequestMoneyModel
-//
-//                Intent intent = new Intent(getContext(), RequestDetailsActivity.class);
-//                intent.putExtra("exp_id", exp_id);
-//                startActivity(intent);
-//            }
-//        });
-
 
         // Set up the ArrayAdapter for the Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -207,25 +194,6 @@ public class ReceivedRequest extends Fragment {
                 // Do nothing here if needed
             }
         });
-
-//        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
-//                getContext(),
-//                R.array.sort_by_date,
-//                android.R.layout.simple_spinner_item
-//        );
-//        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        sort_by_date.setAdapter(adapter1);
-//        sort_by_date.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                sortByDate(position);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
                 getContext(),
@@ -298,15 +266,6 @@ public class ReceivedRequest extends Fragment {
             case 0:
                 break;
             case 1:
-                // Sort by "Request By" in alphabetical order
-//                Collections.sort(receivedRequestModelList, new Comparator<ReceivedRequestModel>() {
-//                    @Override
-//                    public int compare(ReceivedRequestModel o1, ReceivedRequestModel o2) {
-//                        // Assuming getRequestByTV() is a method in RequestMoneyModel to get "Request By" value
-//                        return o1.getRequestByTV().compareToIgnoreCase(o2.getRequestByTV());
-//                    }
-//                });
-//                receivedRequestAdapter.notifyDataSetChanged();
                 filterApplied = true;
                 sortByFiltter = true;
                 dateFiltter = false;
@@ -318,13 +277,6 @@ public class ReceivedRequest extends Fragment {
                 getPaginationExpenseView(paginationValue);
                 break;
             case 2:
-//                Collections.sort(receivedRequestModelList, new Comparator<ReceivedRequestModel>() {
-//                    @Override
-//                    public int compare(ReceivedRequestModel o1, ReceivedRequestModel o2) {
-//                        return o1.getStatusTV().compareToIgnoreCase(o2.getStatusTV());
-//                    }
-//                });
-//                receivedRequestAdapter.notifyDataSetChanged();
                 filterApplied = true;
                 sortByFiltter = true;
                 dateFiltter = false;
@@ -336,13 +288,6 @@ public class ReceivedRequest extends Fragment {
                 getPaginationExpenseView(paginationValue);
                 break;
             case 3:
-//                Collections.sort(receivedRequestModelList, new Comparator<ReceivedRequestModel>() {
-//                    @Override
-//                    public int compare(ReceivedRequestModel o1, ReceivedRequestModel o2) {
-//                        return o1.getHeadsTV().compareToIgnoreCase(o2.getHeadsTV());
-//                    }
-//                });
-//                receivedRequestAdapter.notifyDataSetChanged();
                 filterApplied = true;
                 sortByFiltter = true;
                 dateFiltter = false;
@@ -358,33 +303,6 @@ public class ReceivedRequest extends Fragment {
                 showDateTimePicker(true);
                 break;
 
-            case 5:
-                filterApplied = true;
-                startDateFiltter = false;
-                endDateFiltter = false;
-                sortByFiltter = false;
-                dateFiltter = true;
-                isFiltterLastPage = false;
-                page = 1;
-                paginationValue = "" + page;
-                receivedRequestModelList.clear();
-                currentDateFiltterType = "asc";
-                getPaginationExpenseView(paginationValue);
-                break;
-
-            case 6:
-                filterApplied = true;
-                startDateFiltter = false;
-                endDateFiltter = false;
-                sortByFiltter = false;
-                dateFiltter = true;
-                isFiltterLastPage = false;
-                page = 1;
-                paginationValue = "" + page;
-                receivedRequestModelList.clear();
-                currentDateFiltterType = "desc";
-                getPaginationExpenseView(paginationValue);
-                break;
 
         }
     }
@@ -394,16 +312,6 @@ public class ReceivedRequest extends Fragment {
         switch (position) {
 
             case 1:
-//                Collections.sort(receivedRequestModelList, new Comparator<ReceivedRequestModel>() {
-//                    @Override
-//                    public int compare(ReceivedRequestModel o1, ReceivedRequestModel o2) {
-//                        // Convert string amounts to double for proper comparison
-//                        double amount1 = Double.parseDouble(o1.getAmountTV());
-//                        double amount2 = Double.parseDouble(o2.getAmountTV());
-//                        // Use Double.compare for proper comparison of double values
-//                        return Double.compare(amount1, amount2);
-//                    }
-//                });
                 filterApplied = true;
                 amountFiltter = true;
                 isFiltterLastPage = false;
@@ -415,16 +323,6 @@ public class ReceivedRequest extends Fragment {
                 //receivedRequestAdapter.notifyDataSetChanged();
                 break;
             case 2:
-//                Collections.sort(receivedRequestModelList, new Comparator<ReceivedRequestModel>() {
-//                    @Override
-//                    public int compare(ReceivedRequestModel o1, ReceivedRequestModel o2) {
-//                        // Convert string amounts to double for proper comparison
-//                        double amount1 = Double.parseDouble(o1.getAmountTV());
-//                        double amount2 = Double.parseDouble(o2.getAmountTV());
-//                        // Use Double.compare for proper comparison of double values
-//                        return Double.compare(amount2, amount1);
-//                    }
-//                });
                 filterApplied = true;
                 amountFiltter = true;
                 isFiltterLastPage = false;
@@ -438,170 +336,6 @@ public class ReceivedRequest extends Fragment {
         }
     }
 
-    private void sortByDate(int position) {
-        // Implement logic based on the selected position
-        switch (position) {
-
-            case 1:
-                //DatePickerDialog();
-                showDateTimePicker(true);
-                break;
-
-            case 2:
-//                Collections.sort(receivedRequestModelList, new Comparator<ReceivedRequestModel>() {
-//                    @Override
-//                    public int compare(ReceivedRequestModel o1, ReceivedRequestModel o2) {
-//                        return o1.getDateTV().compareToIgnoreCase(o2.getDateTV());
-//                    }
-//                });
-//                receivedRequestAdapter.notifyDataSetChanged();
-                filterApplied = true;
-                startDateFiltter = false;
-                endDateFiltter = false;
-                dateFiltter = true;
-                isFiltterLastPage = false;
-                page = 1;
-                paginationValue = "" + page;
-                receivedRequestModelList.clear();
-                currentDateFiltterType = "asc";
-                getPaginationExpenseView(paginationValue);
-                break;
-            case 3:
-//                Collections.sort(receivedRequestModelList, new Comparator<ReceivedRequestModel>() {
-//                    @Override
-//                    public int compare(ReceivedRequestModel o1, ReceivedRequestModel o2) {
-//                        return o2.getDateTV().compareToIgnoreCase(o1.getDateTV());
-//                    }
-//                });
-//                receivedRequestAdapter.notifyDataSetChanged();
-                filterApplied = true;
-                startDateFiltter = false;
-                endDateFiltter = false;
-                dateFiltter = true;
-                isFiltterLastPage = false;
-                page = 1;
-                paginationValue = "" + page;
-                receivedRequestModelList.clear();
-                currentDateFiltterType = "desc";
-                getPaginationExpenseView(paginationValue);
-                break;
-        }
-    }
-
-    private void DatePickerDialog() {
-        // Creating a MaterialDatePicker builder for selecting a date range
-        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
-        builder.setTitleText("Select a date range");
-
-        // Building the date picker dialog
-        MaterialDatePicker<Pair<Long, Long>> datePicker = builder.build();
-        datePicker.addOnPositiveButtonClickListener(selection -> {
-
-            // Retrieving the selected start and end dates
-            Long startDate = selection.first;
-            Long endDate = selection.second;
-
-            // Formating the selected dates as strings
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            startDateString = sdf.format(new Date(startDate));
-            endDateString = sdf.format(new Date(endDate));
-
-            // Creating the date range string
-//            String selectedDateRange = startDateString + " - " + endDateString;
-//            Toast.makeText(getContext(), ""+selectedDateRange, Toast.LENGTH_SHORT).show();
-            // Filter the data based on the selected date range
-            filterDataByDateRange(startDateString, endDateString);
-            receivedRequestAdapter.notifyDataSetChanged();
-
-        });
-
-        // Showing the date picker dialog
-        datePicker.show(getParentFragmentManager(), "DATE_PICKER");
-
-    }
-
-    private void filterDataByDateRange(String startDate, String endDate) {
-        List<ReceivedRequestModel> filteredList = new ArrayList<>();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-
-        try {
-            Date startDateFormatted = sdf.parse(startDate + " 00:00:00");
-            Date endDateFormatted = sdf.parse(endDate + " 23:59:59");
-
-            for (ReceivedRequestModel model : receivedRequestModelList) {
-                Date modelDate = sdf.parse(model.getDateTV());
-
-                if (modelDate != null && (modelDate.after(startDateFormatted) || modelDate.equals(startDateFormatted)) &&
-                        (modelDate.before(endDateFormatted) || modelDate.equals(endDateFormatted))) {
-                    filteredList.add(model);
-                }
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        if (filteredList.size() > 0) {
-            recyclerView.setVisibility(View.VISIBLE);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-            receivedRequestAdapter = new ReceivedRequestAdapter(filteredList, getContext());
-            recyclerView.setAdapter(receivedRequestAdapter);
-        } else {
-            recyclerView.setVisibility(View.GONE);
-            // Handle the case when there is no data in the selected date range
-            // no_data.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void performSearch(String value) {
-        filteredList.clear();
-        String searchValue = value.toLowerCase();
-
-        try {
-            if (searchValue.isEmpty()) {
-                // If the search query is empty, show all initial values
-                filteredList.addAll(receivedRequestModelList);
-                recyclerView.setVisibility(View.VISIBLE);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                receivedRequestAdapter = new ReceivedRequestAdapter(receivedRequestModelList, getContext());
-                recyclerView.setAdapter(receivedRequestAdapter);
-            } else {
-                for (ReceivedRequestModel receivedRequestModel : receivedRequestModelList) {
-                    String heads = receivedRequestModel.getHeadsTV().toLowerCase(); // Convert label to lowercase
-                    String label = receivedRequestModel.getRequestLabelTV().toLowerCase(); // Convert label to lowercase
-                    String employeeName = receivedRequestModel.getRequestByTV().toLowerCase();
-                    if (heads.contains(searchValue) || label.contains(searchValue) || employeeName.contains(searchValue)) {
-                        filteredList.add(receivedRequestModel);
-                    }
-                }
-
-                if (filteredList.size() > 0) {
-                    recyclerView.setVisibility(View.VISIBLE);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                    receivedRequestAdapter = new ReceivedRequestAdapter(filteredList, getContext());
-                    recyclerView.setAdapter(receivedRequestAdapter);
-
-                } else {
-                    recyclerView.setVisibility(View.GONE);
-//                        no_data.setVisibility(View.VISIBLE);
-                }
-
-                receivedRequestAdapter.setFilter(filteredList);
-            }
-            receivedRequestAdapter.setOnItemClickListener(new ReceivedRequestAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(ReceivedRequestModel model) {
-                    exp_id = model.getExp_id(); // Assuming there is a method to get id from RequestMoneyModel
-
-                    Intent intent = new Intent(getContext(), ReceivedRequestDetailsActivity.class);
-                    intent.putExtra("exp_id", exp_id);
-                    startActivity(intent);
-                }
-            });
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
 
     VolleyResponse vr = new VolleyResponse() {
         @Override
@@ -694,20 +428,6 @@ public class ReceivedRequest extends Fragment {
                             }
 
                             receivedRequestAdapter.notifyDataSetChanged();
-
-                            // Check if it's the last page
-//                            int totalPages = json.getInt("total_pages");
-//                            if (!filterApplied) {
-//                                if (page >= totalPages) {
-//                                    isLastPage = true;
-//                                }
-//                            } else if (filterApplied) {
-//                                if (page >= totalPages) {
-//                                    isFiltterLastPage = true;
-//                                }
-//                            }
-
-
                         }
                         // Show no_data TextView if there is no data
                         if (receivedRequestModelList.size() == 0) {

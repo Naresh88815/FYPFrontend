@@ -1,7 +1,6 @@
 package com.application.expensemanager.fragments;
 
 import static com.application.expensemanager.utils.MyApplication.apinetwork;
-import static com.application.expensemanager.utils.MyApplication.mSp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -134,7 +133,7 @@ public class UserProfile extends Fragment {
         EditText updateUPIET;
         TextView UPISubmitBtn;
         final BottomSheetDialog sheet = new BottomSheetDialog(getActivity());
-        sheet.setContentView(R.layout.bottomsheet_edit_upi);
+        sheet.setContentView(R.layout.bottomsheet_edit_khalti);
         updateUPIET = sheet.findViewById(R.id.updateUPIET);
         UPISubmitBtn = sheet.findViewById(R.id.UPISubmitBtn);
 
@@ -150,10 +149,6 @@ public class UserProfile extends Fragment {
             @Override
             public void onClick(View view) {
                 newKhaltiId = updateUPIET.getText().toString();
-//                if (!Utils.isUpiIdValid(userKhaltiId)) {
-//                    updateUPIET.setError("Please Enter Valid UPI");
-//                }
-//                else
                 if (newKhaltiId.isEmpty()) {
                     updateUPIET.setError("This field is required");
                     updateUPIET.requestFocus();
@@ -171,22 +166,15 @@ public class UserProfile extends Fragment {
         final BottomSheetDialog sheet = new BottomSheetDialog(getActivity());
         sheet.setContentView(R.layout.bottomsheet_edit_bank_details);
         updateAccountNoET = sheet.findViewById(R.id.updateAccountNoET);
-        updateIfscCodeET = sheet.findViewById(R.id.updateIfscCodeET);
         bankDetailsSubmitBtn = sheet.findViewById(R.id.bankDetailsSubmitBtn);
         assert updateAccountNoET != null;
         updateAccountNoET.setInputType(InputType.TYPE_CLASS_NUMBER);
-        assert updateIfscCodeET != null;
-        updateIfscCodeET.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
 
-        if (userAccountNo != null && !userAccountNo.equals("null") && !userAccountNo.isEmpty() &&
-                userIfscCode != null && !userIfscCode.equals("null") && !userIfscCode.isEmpty()) {
+        if (userAccountNo != null && !userAccountNo.equals("null") && !userAccountNo.isEmpty()) {
             updateAccountNoET.setText(userAccountNo);
-            updateIfscCodeET.setText(userIfscCode);
         } else {
             updateAccountNoET.setText("");
             updateAccountNoET.setHint("Enter Account Number");
-            updateIfscCodeET.setText("");
-            updateIfscCodeET.setHint("Enter IFSC Code");
         }
 
 
@@ -202,16 +190,6 @@ public class UserProfile extends Fragment {
                     updateAccountNoET.setError("This field is required");
                     updateAccountNoET.requestFocus();
                 }
-//                else if (userIfscCode.isEmpty()) {
-//                    updateIfscCodeET.setError("This field is required");
-//                    updateIfscCodeET.requestFocus();
-//                } else if (!Utils.isValidAccountNumber(userAccountNo)) {
-//                    updateAccountNoET.setError("Please Enter Valid Account Number");
-//                    updateAccountNoET.requestFocus();
-//                } else if (!Utils.isValidIFSCCode(userIfscCode)) {
-//                    updateIfscCodeET.setError("Please Enter Valid IFSC Code");
-//                    updateIfscCodeET.requestFocus();
-//                }
                 else {
                     updateBankDetails();
                     sheet.cancel();
@@ -242,18 +220,14 @@ public class UserProfile extends Fragment {
                             String user_phone = userObject.getString("user_phone");
                             String user_khalti_id = userObject.getString("khalti_id");
                             String user_account_number = userObject.getString("account_no");
-//                        String user_ifsc_code = json.getString("ifsc_code");
-//                      Toast.makeText(getContext(), "" + json.getString("msg"), Toast.LENGTH_SHORT).show();
                             name.setText(user_name);
                             email.setText(user_email);
                             phone.setText(user_phone);
                             upiId.setText(user_khalti_id);
                             accountNo.setText(user_account_number);
-//                            ifscCode.setText(user_ifsc_code);
 
                             userKhaltiId = user_khalti_id;
                             userAccountNo = user_account_number;
-//                            userIfscCode = user_ifsc_code;
 
                             //Check UPI ID and Bank Details is null or not
                             if (user_khalti_id.isEmpty() || user_khalti_id.equals("null")) {
@@ -289,7 +263,6 @@ public class UserProfile extends Fragment {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                // Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 

@@ -145,10 +145,6 @@ public class SelectedImageAdapter extends RecyclerView.Adapter<SelectedImageAdap
         }
     }
 
-    public boolean isImagesListEmpty() {
-        return imagesList.isEmpty();
-    }
-
     private boolean isUriPdfFile(Uri uri) {
         ContentResolver contentResolver = context.getContentResolver();
         String type = contentResolver.getType(uri);
@@ -168,18 +164,6 @@ public class SelectedImageAdapter extends RecyclerView.Adapter<SelectedImageAdap
         }
     }
 
-    private void openImageItem(String item) {
-        if (isStrinfPdfFile(item)) {
-            Log.d("FileType", "FILE: "+item);
-            openPdfInWebView(context, item);
-//            Intent intent = new Intent(Intent.ACTION_VIEW);
-//            intent.setDataAndType(Uri.parse( "http://docs.google.com/viewer?url=" + item), "text/html");
-//            context.startActivity(intent);
-        } else {
-            openServerImageViewer(item);
-        }
-    }
-
     private void openPdfInWebView(Context context, String pdfUrl) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pdfUrl));
         context.startActivity(browserIntent);
@@ -189,10 +173,6 @@ public class SelectedImageAdapter extends RecyclerView.Adapter<SelectedImageAdap
     private void openPdfViewer(Uri pdfUri) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pdfUri.toString()));
         context.startActivity(browserIntent);
-//        Intent intent = new Intent(Intent.ACTION_VIEW);
-//        intent.setDataAndType(pdfUri, "application/pdf");
-//        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        context.startActivity(intent);
     }
 
     private void openImageViewer(Uri imageUri) {
@@ -236,53 +216,6 @@ public class SelectedImageAdapter extends RecyclerView.Adapter<SelectedImageAdap
         }
 
         dialog.show();
-    }
-
-//    private void openServerPdfViewer(String pdfUrl) {
-//        Uri pdfUri = Uri.parse(pdfUrl);
-//        Intent intent = new Intent(Intent.ACTION_VIEW);
-//        intent.setDataAndType(pdfUri, "application/pdf");
-//        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        if (intent.resolveActivity(context.getPackageManager()) != null) {
-//            context.startActivity(intent);
-//        } else {
-//            Toast.makeText(context, "No app available to handle the request", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-    private void openServerPdfViewer(Uri pdfUri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(pdfUri, "application/pdf");
-        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        if (intent.resolveActivity(context.getPackageManager()) != null) {
-            context.startActivity(intent);
-        } else {
-            // If no PDF viewer app is available, show a message or prompt the user to install one.
-            Toast.makeText(context, "No PDF viewer app available on the device", Toast.LENGTH_SHORT).show();
-            promptToInstallPdfViewer();
-        }
-    }
-
-
-
-    private void promptToInstallPdfViewer() {
-        Uri uri = Uri.parse("market://details?id=com.adobe.reader"); // Adobe Acrobat Reader
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-
-        // To prevent the crash if the Play Store is not available
-        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-
-        try {
-            context.startActivity(goToMarket);
-        } catch (ActivityNotFoundException e) {
-            // If the Play Store is not available, open the browser
-            uri = Uri.parse("https://play.google.com/store/apps/details?id=com.adobe.reader");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            context.startActivity(intent);
-        }
     }
 }
 

@@ -150,8 +150,6 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         initView();
         getIntentData();
         getExpenseDetail();
-//        Log.d("Accounts_Details", "after response : " + paid_type + " : " + paid_upi + " : " + paid_ac_owner + " : " + paid_ac_number + " : " + paid_ac_ifsc + " : " + company_bank_name);
-        // updateUIWithData();
         approveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -524,10 +522,6 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
             user_note.setText(userNote);
         }
         if (!image.equals("null")) {
-//            Glide.with(context)
-//                    .load(image)
-//                    .placeholder(R.drawable.img_placeholder)
-//                    .into(billImg);
             for (String imageUrl : imageUrlList) {
                 // Remove unnecessary symbols from the image URL
                 String cleanedImageUrl = imageUrl
@@ -535,8 +529,6 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                         .replaceAll("\\[", "") // Remove opening square brackets
                         .replaceAll("\\]", "") // Remove closing square brackets
                         .trim(); // Trim any leading or trailing whitespace
-
-                // Load image into ImageView using Glide
 
                 Glide.with(context)
                         .load(Constants.IMAGE_URL + cleanedImageUrl)
@@ -1067,10 +1059,6 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
                         }
                     }
 
-//                    if (bitmap != null) {
-//                        String imagename = Constants.getcustomer_id(context) + System.currentTimeMillis();
-//                        params.put("image", new DataPart(imagename + ".jpg", getFileDataFromDrawable(bitmap)));
-//                    }
                     return params;
 
                 }
@@ -1082,14 +1070,6 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         }
     }
 
-//    private void chooseMultipleImages() {
-//        Intent pickImages = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//        pickImages.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//        pickImages.addCategory(Intent.CATEGORY_OPENABLE);
-//        pickImages.setType("image/*");
-//
-//        startActivityForResult(pickImages, SELECT_MULTIPLE_IMAGES);
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -1150,18 +1130,6 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
         }
     }
 
-//    private byte[] getFileDataFromFile(File mediaFile) {
-//        try {
-//            FileInputStream fileInputStream = new FileInputStream(mediaFile);
-//            byte[] data = new byte[(int) mediaFile.length()];
-//            fileInputStream.read(data);
-//            fileInputStream.close();
-//            return data;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 
     private boolean isPdfFile(Uri uri) {
         ContentResolver contentResolver = ReceivedRequestDetailsActivity.this.getContentResolver();
@@ -1243,45 +1211,6 @@ public class ReceivedRequestDetailsActivity extends AppCompatActivity {
             }
         }
     }
-
-//    private void handleSelectedImage(Uri selectedImage) {
-//        try {
-//            Bitmap main_bitmap;
-//
-//            if (selectedImage.getScheme().equals("file")) {
-//                String filePath = selectedImage.getPath();
-//                Log.d("CameraResult", "File path: " + filePath);
-//                main_bitmap = BitmapFactory.decodeFile(filePath);
-//
-//                if (main_bitmap == null) {
-//                    Log.e("CameraResult", "Failed to decode file: " + filePath);
-//                } else {
-//                    Log.d("CameraResult", "main_bitmap: " + main_bitmap);
-//                }
-//            } else {
-//                main_bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-//                Log.d("CameraResult", "main_bitmap: " + main_bitmap.toString());
-//            }
-//            bitmap = CompressImage(main_bitmap);
-//            IVPreviewImage.setImageBitmap(bitmap);
-//            selectedImagesList.add(selectedImage);
-//            Log.d("selectedImagesList", "selectedImagesListFromHandle: " + selectedImagesList.toString());
-//
-//            imageSelected = true;
-//            imageAdapter.notifyDataSetChanged();
-//
-//            if (selectedImagesList.isEmpty()) {
-//                imageRecvRelativeLayput.setVisibility(View.GONE);
-//            } else {
-//                imageRecvRelativeLayput.setVisibility(View.VISIBLE);
-//            }
-//
-//            Log.d("afterNotify", selectedImagesList.toString());
-//            IVPreviewImage.setTag(selectedImage.toString());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void handleSelectedImage1(Uri selectedImage) {
         if (selectedImage != null) {

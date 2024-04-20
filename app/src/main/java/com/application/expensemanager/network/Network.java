@@ -53,13 +53,11 @@ public class Network {
         if (params.size() != 0) {
             for (String key : params.keySet()) {
                 if (!key.equals("platform") & !key.equals("app_version") &  !key.equals("unique_device_id") &  !key.equals("app_status") & !key.equals("json")) {
-//                    params.put(key,Utils.encryptedValue(params.get(key)));
                     params.put(key,params.get(key));
                 } else {
                     Log.d("sbparams_prms", params.get(key));
                     params.put(key,params.get(key));
                 }
-
             }
         }
         Log.d("url_with_params", url + "\nparams=" + params.toString());
@@ -114,35 +112,4 @@ public class Network {
         MyApplication.getInstance().getRequestQueue().add(request);
     }
 
-//    public void requestWithJsonObject(final String url, HashMap<String, String> params, final VolleyResponse vr, String type){
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            vr.onResponse(response);
-//                            vr.onResponse2(type, response);
-//                        } catch (Exception e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Utils.dismisProgressDialog();
-//                if (error instanceof TimeoutError) {
-//                    Log.d("ErrorType", "TimeoutError: " + error.toString());
-//                    // Show timeout error message to the user
-//                } else if (error instanceof NetworkError) {
-//                    Log.d("ErrorType", "NetworkError: " + error.toString());
-//                    // Show network error message to the user
-//                } else {
-//                    Log.d("ErrorType", "OtherError: " + error.toString());
-//                    // Show generic error message to the user
-//                }
-//            }
-//        });
-//        // Add the request to the RequestQueue
-//        MyApplication.getInstance().getRequestQueue().add(request);
-//    }
 }

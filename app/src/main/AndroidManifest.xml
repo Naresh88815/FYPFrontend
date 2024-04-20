@@ -52,20 +52,8 @@
             android:name=".activity.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-<!--        <activity-->
-<!--            android:name=".activity.MainActivity"-->
-<!--            android:exported="true"-->
-<!--            android:screenOrientation="portrait" />-->
         <activity
             android:name=".activity.OTPActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.RegisterEmployee"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.RegisterThanking"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity

@@ -31,20 +31,11 @@ public class SplashActivity extends AppCompatActivity {
         appVersionTxt = findViewById(R.id.appVersionTxt);
         appVersionTxt.setText("Version "+getAppVersionName(SplashActivity.this));
 
-        // Check if network is available
-//        boolean isNetworkAvailable = InternetConnection.isConnected(SplashActivity.this);
-//
-//        if (!isNetworkAvailable) {
-//
-//        }
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 checkIsLogin();
-//                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-//                startActivity(intent);
                 finish();
 
             }
@@ -57,17 +48,6 @@ public class SplashActivity extends AppCompatActivity {
             boolean isNetworkAvailable = InternetConnection.isConnected(SplashActivity.this);
             if (isNetworkAvailable){
                 if (islogin.equals(SPCsnstants.YES)) {
-//                if (MyApplication.mSp.getKey(SPCsnstants.super_user).equals("0")) {
-//                    gotoNextPage();
-//                    Log.d("super", MyApplication.mSp.getKey(SPCsnstants.super_user));
-//                } else if (MyApplication.mSp.getKey(SPCsnstants.super_user).equals("1")) {
-//                    gotoAdminPage();
-//
-//                    Log.d("super", MyApplication.mSp.getKey(SPCsnstants.super_user));
-//                } else if (MyApplication.mSp.getKey(SPCsnstants.super_user).equals("2")) {
-//                    gotoAdminPage();
-//
-//                }
                     gotoNextPage();
                     finish();
                 } else {
@@ -104,18 +84,4 @@ public class SplashActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-//    private void gotoAdminPage(){
-//        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//        finish();
-//    }
-
-//    private void gotoFinancePage(){
-//        Intent intent = new Intent(SplashActivity.this, AdminMainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//        finish();
-//    }
 }

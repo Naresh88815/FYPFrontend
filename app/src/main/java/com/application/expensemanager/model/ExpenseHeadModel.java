@@ -3,7 +3,6 @@ package com.application.expensemanager.model;
 public class ExpenseHeadModel {
     String head_id;
     String head_name;
-    String head_status;
     String head_imgstatus;
 
     public ExpenseHeadModel(String head_id, String head_name,String head_imgstatus) {
@@ -20,11 +19,4 @@ public class ExpenseHeadModel {
         return head_id;
     }
 
-    public String getHead_imgstatus() {
-        return head_imgstatus;
-    }
-
-    public void setHead_imgstatus(String head_imgstatus) {
-        this.head_imgstatus = head_imgstatus;
-    }
 }

@@ -19,13 +19,6 @@ public class RequestMoneyModel {
         this.id = id;
     }
 
-//    public RequestMoneyModel(String requestLabelTV, String amountTV, String dateTV, String image) {
-//        this.requestLabelTV = requestLabelTV;
-//        this.amountTV = amountTV;
-//        this.dateTV = dateTV;
-//        this.image = image;
-//    }
-
     public String getRequestLabelTV() {
         return requestLabelTV;
     }

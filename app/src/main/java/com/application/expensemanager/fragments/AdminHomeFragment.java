@@ -40,8 +40,6 @@ public class AdminHomeFragment extends Fragment {
     TextView filterDates;
     String head;
     String name,email,user_phone,account_no,khalti_id,user_role,super_user;
-
-
     String startDateString = "";
      String endDateString = "";
     String is_role;
@@ -277,7 +275,6 @@ public class AdminHomeFragment extends Fragment {
 
             }
         });
-
     }
     private void addUser(){
         Utils.showProgressDialog(getContext(),false);
@@ -290,24 +287,6 @@ public class AdminHomeFragment extends Fragment {
         params.put("khalti_id",khalti_id);
         params.put("user_role",user_role);
         params.put("super_user", super_user);
-//        params.put("login_status","");
-//        params.put("last_login","");
         apinetwork.requestWithJsonObject(Constants.ADD_USER,params,vr,"add_user");
     }
-
-//    public void refreshFragment() {
-//        is_role = MyApplication.mSp.getKey(SPCsnstants.IS_screen);
-//        if (is_role.equals(SPCsnstants.user)) {
-//            FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.fragment_container, new HomeFragment()); // Replace with your fragment class
-//            ft.addToBackStack(null);
-//            ft.commit();
-//        } else if (is_role.equals(SPCsnstants.Admin)) {
-//            FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.admin_fragment_container, new HomeFragment()); // Replace with your fragment class
-//            ft.addToBackStack(null);
-//            ft.commit();
-//        }
-//
-//    }
 }

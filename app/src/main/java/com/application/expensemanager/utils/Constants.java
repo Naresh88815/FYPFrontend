@@ -82,6 +82,15 @@ public class Constants {
         return release;
     }
 
+    public static String getcustomer_id(Context activity) {
+        String customerid = "";
+        try {
+            customerid = activity.getSharedPreferences("custom_detail", 0).getString("c_id", "0");
+        } catch (Exception e) {
+            customerid = "";
+        }
+        return customerid;
+    }
     private static String uniqueID = null;
     private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
 
@@ -95,44 +104,5 @@ public class Constants {
         }
 
         return androidId;
-    }
-
-    public static class GetPublicIP extends AsyncTask<String, String, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String publicIP = "";
-            try {
-                java.util.Scanner s = new java.util.Scanner(
-                        new URL(
-                                "https://api.ipify.org")
-                                .openStream(), "UTF-8")
-                        .useDelimiter("\\A");
-                publicIP = s.next();
-            } catch (java.io.IOException e) {
-                e.printStackTrace();
-            }
-
-            return publicIP;
-        }
-
-        @Override
-        protected void onPostExecute(String publicIp) {
-            super.onPostExecute(publicIp);
-            Constants.publicIp = publicIp;
-            Log.e("PublicIP", publicIp + "");
-        }
-    }
-
-    static String[] RoughArray;
-
-    public static String getcustomer_id(Context activity) {
-        String customerid = "";
-        try {
-            customerid = activity.getSharedPreferences("custom_detail", 0).getString("c_id", "0");
-        } catch (Exception e) {
-            customerid = "";
-        }
-        return customerid;
     }
 }

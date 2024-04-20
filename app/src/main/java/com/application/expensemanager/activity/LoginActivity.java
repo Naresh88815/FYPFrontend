@@ -143,10 +143,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isLoggedIn() {
-        return MyApplication.mSp.getKey(SPCsnstants.IS_LOGGED_IN).equals(SPCsnstants.YES);
-    }
-
 
     private void sendOtpWithMobile() {
         Utils.showProgressDialog(LoginActivity.this, false);
@@ -210,15 +206,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     };
-
-//    private void saveCredentials(JSONObject user_jsonObject) throws JSONException {
-//        MyApplication.mSp.setKey(SPCsnstants.IS_LOGGED_IN, SPCsnstants.YES);
-//        MyApplication.mSp.setKey(SPCsnstants.id, user_jsonObject.getString("user_id"));
-//        MyApplication.mSp.setKey(SPCsnstants.name, user_jsonObject.getString("name"));
-//        MyApplication.mSp.setKey(mobile, user_jsonObject.getString("user_phone"));
-//        MyApplication.mSp.setKey(SPCsnstants.email, user_jsonObject.getString("email"));
-//        MyApplication.mSp.setKey(SPCsnstants.super_user, user_jsonObject.getString("super_user"));
-//    }
 
     private void saveCredentials(JSONObject user_jsonObject) throws JSONException {
         try {

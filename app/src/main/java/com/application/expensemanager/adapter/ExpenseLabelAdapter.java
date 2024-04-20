@@ -57,9 +57,6 @@ public class ExpenseLabelAdapter extends RecyclerView.Adapter<ExpenseLabelAdapte
                 }
             }
         });
-
-
-
     }
 
     @Override
@@ -84,8 +81,6 @@ public class ExpenseLabelAdapter extends RecyclerView.Adapter<ExpenseLabelAdapte
                     }
                 }
             });
-
-
         }
     }
     public void setFilter(List<ExpenseLabelModel> filteredData) {

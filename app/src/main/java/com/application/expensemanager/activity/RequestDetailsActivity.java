@@ -123,9 +123,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
         initView();
         getIntentData();
         getExpenseDetail();
-        Log.d("check","This is request details page");
-//        Log.d("Accounts_Details", paid_type + " : " + paid_upi + " : " + paid_ac_owner + " : " + paid_ac_number + " : " + paid_ac_ifsc+ " : " +company_bank_name);
-
 
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -341,7 +338,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-//                                    }
                                 }
                                 if (!object.isNull("reject")) {
                                     JSONObject rejectobject = object.getJSONObject("reject");
@@ -356,7 +352,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-//                                    }
                                 }
                                 if (!object.isNull("transfer")) {
                                     JSONObject transferobject = object.getJSONObject("transfer");
@@ -389,7 +384,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-//                                    }
                                 }
 
                             }
@@ -416,13 +410,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
                         cancel_btn.setVisibility(View.GONE);
                         transferview.setVisibility(View.VISIBLE);
 
-//                        if (is_img.equals(true)) {
-//                            uploadImgButton.setVisibility(View.VISIBLE);
-//                            Log.d("msggg", "Imag ecan be uploaded");
-//                        } else {
-//                            uploadImgButton.setVisibility(View.GONE);
-//                        }
-
                     } else if (payment_status.equals("Pending")) {
                         cancel_btn.setVisibility(View.VISIBLE);
                         int yellowColor = ContextCompat.getColor(context, R.color.dark_yellow);
@@ -435,15 +422,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
             }
         }
     };
-
-
-//    public void cancelImage() {
-//        IVPreviewImage.setImageResource(android.R.color.transparent);
-//        IVPreviewImage.setVisibility(View.GONE);
-//        after_transfer_image.setVisibility(View.GONE);
-//        imageSelected = false;
-//        close_icon.setVisibility(View.GONE);
-//    }
 
     private void uploadImg() {
 
@@ -529,11 +507,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
                             }
                         }
                     }
-
-//                    if (bitmap != null) {
-//                        String imagename = Constants.getcustomer_id(context) + System.currentTimeMillis();
-//                        params.put("image", new DataPart(imagename + ".jpg", getFileDataFromDrawable(bitmap)));
-//                    }
                     return params;
 
                 }
@@ -544,16 +517,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
             Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-//    private void chooseMultipleImages() {
-//        Intent pickImages = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//        pickImages.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//        pickImages.addCategory(Intent.CATEGORY_OPENABLE);
-//        pickImages.setType("image/*");
-//
-//        startActivityForResult(pickImages, SELECT_MULTIPLE_IMAGES);
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -614,19 +577,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
             Log.d("afterNotify", selectedImagesList.toString());
         }
     }
-
-//    private byte[] getFileDataFromFile(File mediaFile) {
-//        try {
-//            FileInputStream fileInputStream = new FileInputStream(mediaFile);
-//            byte[] data = new byte[(int) mediaFile.length()];
-//            fileInputStream.read(data);
-//            fileInputStream.close();
-//            return data;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 
     private byte[] getPdfFileBytes(Uri pdfUri) {
         try (InputStream inputStream = RequestDetailsActivity.this.getContentResolver().openInputStream(pdfUri)) {
@@ -727,45 +677,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
             }
         }
     }
-
-//    private void handleSelectedImage(Uri selectedImage) {
-//        try {
-//            Bitmap main_bitmap;
-//
-//            if (selectedImage.getScheme().equals("file")) {
-//                String filePath = selectedImage.getPath();
-//                Log.d("CameraResult", "File path: " + filePath);
-//                main_bitmap = BitmapFactory.decodeFile(filePath);
-//
-//                if (main_bitmap == null) {
-//                    Log.e("CameraResult", "Failed to decode file: " + filePath);
-//                } else {
-//                    Log.d("CameraResult", "main_bitmap: " + main_bitmap);
-//                }
-//            } else {
-//                main_bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-//                Log.d("CameraResult", "main_bitmap: " + main_bitmap.toString());
-//            }
-//            bitmap = CompressImage(main_bitmap);
-//            IVPreviewImage.setImageBitmap(bitmap);
-//            selectedImagesList.add(selectedImage);
-//            Log.d("selectedImagesList", "selectedImagesListFromHandle: " + selectedImagesList.toString());
-//
-//            imageSelected = true;
-//            imageAdapter.notifyDataSetChanged();
-//
-//            if (selectedImagesList.isEmpty()) {
-//                imageRecvRelativeLayput.setVisibility(View.GONE);
-//            } else {
-//                imageRecvRelativeLayput.setVisibility(View.VISIBLE);
-//            }
-//
-//            Log.d("afterNotify", selectedImagesList.toString());
-//            IVPreviewImage.setTag(selectedImage.toString());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void handleSelectedImage1(Uri selectedImage) {
         if (selectedImage != null) {

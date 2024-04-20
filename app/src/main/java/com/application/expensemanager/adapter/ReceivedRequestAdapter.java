@@ -74,22 +74,6 @@ public class ReceivedRequestAdapter extends RecyclerView.Adapter<ReceivedRequest
         holder.amountTV.setText(receivedRequestModel.getAmountTV());
         holder.headstV.setText(receivedRequestModel.getHeadsTV());
 
-//        if (image_status) {
-//            Drawable drawable = ContextCompat.getDrawable(context, R.drawable.light_red_cardview);
-//            holder.layout.setBackground(drawable);
-//            holder.statusimg.setVisibility(View.VISIBLE);
-//            holder.statusimg.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Toast.makeText(context, "Please Upload Image.", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        }else{
-//            holder.statusimg.setVisibility(View.GONE);
-//            Drawable drawable = ContextCompat.getDrawable(context, R.drawable.corner_cardview);
-//            holder.layout.setBackground(drawable);
-//        }
-
 
         String status = ""+receivedRequestModel.getStatusTV();
         holder.statusTV.setText(receivedRequestModel.getStatusTV());
